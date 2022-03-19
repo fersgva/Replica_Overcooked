@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    float h, v;
+    [HideInInspector] public float h, v;
     float speed = 5;
     float gravityFactor = -9.8f;
     bool running = false;

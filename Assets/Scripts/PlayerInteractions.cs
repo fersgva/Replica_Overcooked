@@ -4,121 +4,80 @@ using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour
 {
-    Transform currentTable;
-    [SerializeField] Transform holdPoint;
-    Transform item;
-    int highlightedMask, catchableMask, tableMask;
-
-    List<GameObject> tablesAround = new List<GameObject>();
-    List<GameObject> catchablesAround = new List<GameObject>();
-    GameObject closestTable, closestCatchable;
+    GameObject currentTarget, lastTarget, holdItem;
     Animator anim;
+    [SerializeField] Transform holdPoint;
+
+    PlayerDetections detectScr;
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+        detectScr = GetComponent<PlayerDetections>();
+    }
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
-        highlightedMask = LayerMask.NameToLayer("HighLighted");
-        tableMask = LayerMask.NameToLayer("Table");
-        catchableMask = LayerMask.NameToLayer("Catchable");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && closestCatchable != null)
+        if(Input.GetKeyDown(KeyCode.E))
         {
-            if (holdPoint.childCount == 0)
+            if(holdItem == null) //Si no tenemos nada en mano...
             {
-                anim.SetBool("holding", true);
-                closestCatchable.layer = catchableMask;
-                closestCatchable.GetComponent<Rigidbody>().isKinematic = true;
-                closestCatchable.transform.SetParent(holdPoint);
-                closestCatchable.transform.localPosition = new Vector3(0.028f, -0.362f, 0.032f);
-                closestCatchable.transform.localEulerAngles = new Vector3(0, 0, 0);
+                if(detectScr.closestPickable != null)
+                {
+                    holdItem = detectScr.closestPickable;
+                    CatchPickUp();
+                }
+                //if(currentTarget != null && currentTarget.CompareTag("PickUp")) //Si hay PickUp en suelo.
+                //{
+                //    holdItem = currentTarget;
+                //    CatchPickUp();
+                //}
+                //else if(currentTarget != null && currentTarget.transform.childCount > 0) //Si hay PickUp en mesa....
+                //{
+                //    holdItem = currentTarget.transform.GetChild(0).gameObject;
+                //    CatchPickUp();
+                //}
+
             }
-            else if(closestTable != null) //Dejar en mesa.
-            {
-                anim.SetBool("holding", false);
-                closestCatchable.GetComponent<Rigidbody>().isKinematic = true;
-                closestCatchable.transform.SetParent(closestTable.transform);
-                closestCatchable.transform.localPosition = new Vector3(0, 0.5f, 0);
-                closestCatchable.transform.localEulerAngles = new Vector3(-90, 0, 0);
-                closestCatchable.layer = catchableMask;
-            }
+
+            //----------------Si tenemos algo en mano-----------------------------------------------------//
             else
             {
-                anim.SetBool("holding", false);
-                closestCatchable.transform.SetParent(null);
-                closestCatchable.GetComponent<Rigidbody>().isKinematic = false;
-            }
+                //if (currentTarget != null && currentTarget.transform.childCount == 0) //Si tenemos algo en mano y hay mesa DISPONIBLE.
+                //{
+                //    anim.SetBool("holding", false);
+                //    holdItem.GetComponent<Collider>().enabled = true;
+                //    holdItem.GetComponent<Rigidbody>().isKinematic = true;
+                //    holdItem.transform.SetParent(currentTarget.transform);
+                //    holdItem.transform.localPosition = new Vector3(0f, 0.5f, 0f);
+                //    holdItem.transform.localEulerAngles = new Vector3(-90, 0, 0);
+                //    holdItem.layer = interactuableMask;
+                //    holdItem = null;
+                //}
+                //else if (currentTarget == null) //Si no hay mesa delante.
+                //{
+                //    anim.SetBool("holding", false);
+                //    holdItem.transform.SetParent(null);
+                //    holdItem.GetComponent<Collider>().enabled = true;
+                //    holdItem.GetComponent<Rigidbody>().isKinematic = false;
+                //    holdItem.layer = interactuableMask;
+                //    holdItem = null;
+                //}
 
-        }
-        //if (movement.direction.sqrMagnitude != 0 && closestTable != null)
-        //{
-        //    CalculateClosestTable();
-        //}
-
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        Debug.Log("sdsa");
-        if(other.gameObject.layer == tableMask)
-        {
-
-            if (!tablesAround.Contains(other.gameObject))
-                tablesAround.Add(other.gameObject); //Lista de mesas.
-            
-            closestTable = CheckClosestObject(tablesAround);
-            if(closestTable != null)
-                closestTable.layer = highlightedMask;
-        }
-
-        if (other.gameObject.layer == catchableMask)
-        {
-
-            if (!catchablesAround.Contains(other.gameObject))
-                catchablesAround.Add(other.gameObject); //Lista de catchables.
-
-            closestCatchable = CheckClosestObject(catchablesAround);
-            if (closestCatchable != null)
-                closestCatchable.layer = highlightedMask;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == highlightedMask)
-        {
-            tablesAround.Clear();
-            catchablesAround.Clear();
-            if(closestTable != null)
-            {
-                closestTable.layer = tableMask;
-                closestTable = null;
-            }
-            if (closestCatchable != null)
-            {
-                closestCatchable.layer = catchableMask;
-                closestCatchable = null;
             }
         }
     }
-
-    GameObject CheckClosestObject(List<GameObject> objectsAround)
+    void CatchPickUp()
     {
-        float bet = 0;
-        GameObject closestObject = null;
-        foreach (GameObject thisObject in objectsAround)
-        {
-            thisObject.layer = tableMask;
-            Vector3 dirToTable = Vector3.Normalize(thisObject.transform.position - transform.position);
-            float dotProduct = Vector3.Dot(transform.forward, dirToTable);
-            if (dotProduct >= bet)
-            {
-                bet = dotProduct;
-                closestObject = thisObject;
-            }
-        }
-        return closestObject;
-
+        anim.SetBool("holding", true);
+        holdItem.GetComponent<Rigidbody>().isKinematic = true;
+        holdItem.GetComponent<Collider>().enabled = false;
+        holdItem.transform.SetParent(holdPoint);
+        holdItem.transform.localPosition = new Vector3(0.028f, -0.362f, 0.032f);
+        holdItem.transform.localEulerAngles = new Vector3(0, 0, 0);
     }
 }
