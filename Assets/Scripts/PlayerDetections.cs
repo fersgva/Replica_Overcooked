@@ -6,15 +6,17 @@ public class PlayerDetections : MonoBehaviour
 {
 
     [HideInInspector]public GameObject closestPickable, closestTable;
-    List<GameObject> closePickables = new List<GameObject>();
+    [HideInInspector] public List<GameObject> closePickables = new List<GameObject>();
     List<GameObject> closeTables = new List<GameObject>();
 
-    int interactuableMask, highlightedMask;
+    [HideInInspector] public int interactuableMask, highlightedMask;
     
     PlayerMovement movementScr;
+    Utilities utilities;
     // Start is called before the first frame update
     private void Awake()
     {
+        utilities = Utilities.instance;
         interactuableMask = LayerMask.NameToLayer("Interactuable");
         highlightedMask = LayerMask.NameToLayer("HighLighted");
         movementScr = GetComponent<PlayerMovement>();
@@ -93,12 +95,16 @@ public class PlayerDetections : MonoBehaviour
     {
         //El anterior pick up que estaba más cercana.
         if (currentClosest != null)
-            currentClosest.layer = interactuableMask;
+        {
+            utilities.ChangeAllGameObjectLayers(closestPickable, interactuableMask);
+        }
 
         //Para el nuevo pick Up más cercano.
         closestPickable = CheckClosestItem(closePickables);
         if (closestPickable != null)
-            closestPickable.layer = highlightedMask;
+        {
+            utilities.ChangeAllGameObjectLayers(closestPickable, highlightedMask);
+        }
     }
     GameObject CheckClosestItem(List<GameObject> objectsType)
     {

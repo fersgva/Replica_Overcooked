@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1665031797197775778
+--- !u!1 &2529799871451109907
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1665031797197750146}
-  - component: {fileID: 1665031797194882978}
-  - component: {fileID: 1665031797195849058}
-  m_Layer: 0
+  - component: {fileID: 2529799871451072051}
+  - component: {fileID: 2529799871450301971}
+  - component: {fileID: 2529799871449171155}
+  m_Layer: 11
   m_Name: Pan
   m_TagString: PickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1665031797197750146
+--- !u!4 &2529799871451072051
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1665031797197775778}
-  m_LocalRotation: {x: 0.0000000729829, y: -0.44419184, z: -0.00000003618402, w: 0.89593166}
-  m_LocalPosition: {x: -7.989, y: 0.41135326, z: 3.499}
-  m_LocalScale: {x: 0.378882, y: 0.378882, z: 0.378882}
+  m_GameObject: {fileID: 2529799871451109907}
+  m_LocalRotation: {x: -0, y: -0, z: 7.1054274e-15, w: 1}
+  m_LocalPosition: {x: 0.00047812623, y: 0.14424875, z: -0.14886023}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2529799871505106353}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -52.743, z: 0}
---- !u!33 &1665031797194882978
+--- !u!33 &2529799871450301971
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1665031797197775778}
+  m_GameObject: {fileID: 2529799871451109907}
   m_Mesh: {fileID: 4300000, guid: 039a45ab4232bb940b0a7f49c6ac30f0, type: 3}
---- !u!23 &1665031797195849058
+--- !u!23 &2529799871449171155
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1665031797197775778}
+  m_GameObject: {fileID: 2529799871451109907}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -81,3 +81,65 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2529799871505106364
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2529799871505106353}
+  - component: {fileID: 2529799871505106354}
+  - component: {fileID: 2529799871505106355}
+  m_Layer: 11
+  m_Name: Pan
+  m_TagString: PickUp
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2529799871505106353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529799871505106364}
+  m_LocalRotation: {x: 0.00000007298291, y: -0.44419187, z: -0.000000036184023, w: 0.8959317}
+  m_LocalPosition: {x: -8.034, y: 0.3567, z: 3.533}
+  m_LocalScale: {x: 0.378882, y: 0.378882, z: 0.378882}
+  m_Children:
+  - {fileID: 2529799871451072051}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2529799871505106354
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529799871505106364}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.1501706, y: 0.38210312, z: 3.758079}
+  m_Center: {x: -0.00000001896281, y: 0.19, z: -0.6362863}
+--- !u!54 &2529799871505106355
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529799871505106364}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

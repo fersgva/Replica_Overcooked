@@ -9,8 +9,10 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] Transform holdPoint;
 
     PlayerDetections detectScr;
+    Utilities utilities;
     private void Awake()
     {
+        utilities = Utilities.instance;
         anim = GetComponent<Animator>();
         detectScr = GetComponent<PlayerDetections>();
     }
@@ -24,23 +26,14 @@ public class PlayerInteractions : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            if(holdItem == null) //Si no tenemos nada en mano...
+            //--------------------Si no tenemos nada en mano-------------------------------------//
+            if (holdItem == null) 
             {
                 if(detectScr.closestPickable != null)
                 {
                     holdItem = detectScr.closestPickable;
                     CatchPickUp();
                 }
-                //if(currentTarget != null && currentTarget.CompareTag("PickUp")) //Si hay PickUp en suelo.
-                //{
-                //    holdItem = currentTarget;
-                //    CatchPickUp();
-                //}
-                //else if(currentTarget != null && currentTarget.transform.childCount > 0) //Si hay PickUp en mesa....
-                //{
-                //    holdItem = currentTarget.transform.GetChild(0).gameObject;
-                //    CatchPickUp();
-                //}
 
             }
 
@@ -73,11 +66,19 @@ public class PlayerInteractions : MonoBehaviour
     }
     void CatchPickUp()
     {
+        //Animations
         anim.SetBool("holding", true);
+
+        
+        //Le sacamos de la lista para que no lo tome entre los pickables cercanos.
+        detectScr.closePickables.Remove(holdItem);
+        
+        //Change item properties.
+        utilities.ChangeAllGameObjectLayers(holdItem, detectScr.interactuableMask);
         holdItem.GetComponent<Rigidbody>().isKinematic = true;
         holdItem.GetComponent<Collider>().enabled = false;
         holdItem.transform.SetParent(holdPoint);
-        holdItem.transform.localPosition = new Vector3(0.028f, -0.362f, 0.032f);
-        holdItem.transform.localEulerAngles = new Vector3(0, 0, 0);
+        holdItem.transform.localPosition = new Vector3(0, 0, 0.2f);
+        holdItem.transform.localEulerAngles = new Vector3(60, 100, 90);
     }
 }
