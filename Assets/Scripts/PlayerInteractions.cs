@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour
 {
-    GameObject currentTarget, lastTarget, holdItem;
+    GameObject holdItem;
     Animator anim;
     [SerializeField] Transform holdPoint;
 
@@ -26,7 +26,7 @@ public class PlayerInteractions : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            //--------------------Si no tenemos nada en mano-------------------------------------//
+            //--------------------Si no tenemos nada en mano-------------------------------------------//
             if (holdItem == null) 
             {
                 if(detectScr.closestPickable != null)
@@ -38,30 +38,26 @@ public class PlayerInteractions : MonoBehaviour
             }
 
             //----------------Si tenemos algo en mano-----------------------------------------------------//
-            else
+            else if(detectScr.closestTable != null) //Si tenemos algo en mano y hay mesa delante.
             {
-                //if (currentTarget != null && currentTarget.transform.childCount == 0) //Si tenemos algo en mano y hay mesa DISPONIBLE.
-                //{
-                //    anim.SetBool("holding", false);
-                //    holdItem.GetComponent<Collider>().enabled = true;
-                //    holdItem.GetComponent<Rigidbody>().isKinematic = true;
-                //    holdItem.transform.SetParent(currentTarget.transform);
-                //    holdItem.transform.localPosition = new Vector3(0f, 0.5f, 0f);
-                //    holdItem.transform.localEulerAngles = new Vector3(-90, 0, 0);
-                //    holdItem.layer = interactuableMask;
-                //    holdItem = null;
-                //}
-                //else if (currentTarget == null) //Si no hay mesa delante.
-                //{
-                //    anim.SetBool("holding", false);
-                //    holdItem.transform.SetParent(null);
-                //    holdItem.GetComponent<Collider>().enabled = true;
-                //    holdItem.GetComponent<Rigidbody>().isKinematic = false;
-                //    holdItem.layer = interactuableMask;
-                //    holdItem = null;
-                //}
-
+                anim.SetBool("holding", false);
+                holdItem.GetComponent<Collider>().enabled = true;
+                holdItem.GetComponent<Rigidbody>().isKinematic = true;
+                holdItem.transform.SetParent(detectScr.closestTable.transform);
+                holdItem.transform.localPosition = new Vector3(0f, 0.5f, 0f);
+                holdItem.transform.localEulerAngles = Vector3.zero;
+                holdItem = null;
             }
+            else //Si no hay mesa delante.
+            {
+                anim.SetBool("holding", false);
+                holdItem.transform.SetParent(null);
+                holdItem.GetComponent<Collider>().enabled = true;
+                holdItem.GetComponent<Rigidbody>().isKinematic = false;
+                holdItem = null;
+            }
+
+            
         }
     }
     void CatchPickUp()

@@ -10354,6 +10354,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   closestPickable: {fileID: 0}
   closestTable: {fileID: 0}
+  closePickables: []
+  interactuableMask: 0
+  highlightedMask: 0
 --- !u!135 &2339512898068018593
 SphereCollider:
   m_ObjectHideFlags: 0
