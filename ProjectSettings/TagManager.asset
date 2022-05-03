@@ -7,6 +7,7 @@ TagManager:
   - Table
   - Dish
   - PickUp
+  - Crate
   layers:
   - Default
   - TransparentFX

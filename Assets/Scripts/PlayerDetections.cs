@@ -46,7 +46,15 @@ public class PlayerDetections : MonoBehaviour
 
             UpdateClosestTable(closestTable);
         }
+        //Cajas de ingredientes. Funcionan también como mesa si tenemos algo en mano
+        if(other.gameObject.CompareTag("Crate"))
+        {
+            GameObject thisCloseCrate = other.gameObject;
+            if (!closeTables.Contains(thisCloseCrate))
+                closeTables.Add(thisCloseCrate);
 
+            UpdateClosestTable(closestTable);
+        }
         if (other.gameObject.CompareTag("PickUp"))
         {
             GameObject thisClosePickUp = other.gameObject;
@@ -65,7 +73,14 @@ public class PlayerDetections : MonoBehaviour
 
             UpdateClosestTable(closestTable);
         }
+        //Cajas de ingredientes. Funcionan también como mesa si tenemos algo en mano
+        if (other.gameObject.CompareTag("Crate"))
+        {
+            GameObject thisCloseCrate = other.gameObject;
+            closeTables.Remove(thisCloseCrate);
 
+            UpdateClosestTable(closestTable);
+        }
         if (other.gameObject.CompareTag("PickUp"))
         {
             GameObject thisClosePickUp = other.gameObject;
@@ -82,12 +97,17 @@ public class PlayerDetections : MonoBehaviour
     {
         //La anterior mesa que estaba más cercana.
         if (currentClosest != null)
-            currentClosest.layer = interactuableMask;
+        {
+            utilities.ChangeAllGameObjectLayers(currentClosest, interactuableMask);
+        }
 
         //La nueva mesa más cercana.
         closestTable = CheckClosestItem(closeTables);
         if (closestTable != null)
-            closestTable.layer = highlightedMask;
+        {
+            utilities.ChangeAllGameObjectLayers(closestTable, highlightedMask);
+        }
+           
     }
 
 

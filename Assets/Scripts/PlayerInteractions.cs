@@ -29,10 +29,15 @@ public class PlayerInteractions : MonoBehaviour
             //--------------------Si no tenemos nada en mano-------------------------------------------//
             if (holdItem == null) 
             {
-                if(detectScr.closestPickable != null)
+                if (detectScr.closestPickable != null) //y si hay un pick up cerca... (se le da prioridad frente a la caja)
                 {
                     holdItem = detectScr.closestPickable;
-                    CatchPickUp();
+                    CatchPickUp(); //Cogemos el pickup.
+                }
+                else if (detectScr.closestTable != null && detectScr.closestTable.CompareTag("Crate")) //ó si hay una caja cerca...
+                {
+                    //Activar animación de caja.
+                    Debug.Log("ABRIR");
                 }
 
             }
