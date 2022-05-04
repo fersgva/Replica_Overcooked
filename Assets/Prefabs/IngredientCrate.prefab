@@ -156,6 +156,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3823845092672035871}
   - component: {fileID: 3823845092672035856}
+  - component: {fileID: 240238513251112490}
+  - component: {fileID: 4495657026615046180}
   m_Layer: 11
   m_Name: IngredientCrate
   m_TagString: Crate
@@ -191,6 +193,38 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.05, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &240238513251112490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3823845092672035870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f753e79005c163d41a2ffa62739f1b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientToSpawnPrefab: {fileID: 1927874641311126934, guid: 2dcc57322f85dd846b059c7d984448fb, type: 3}
+--- !u!95 &4495657026615046180
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3823845092672035870}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf51339874a850a4490af66374bcb868, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3823845092917800031
 GameObject:
   m_ObjectHideFlags: 0

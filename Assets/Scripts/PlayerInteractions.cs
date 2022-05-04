@@ -36,8 +36,8 @@ public class PlayerInteractions : MonoBehaviour
                 }
                 else if (detectScr.closestTable != null && detectScr.closestTable.CompareTag("Crate")) //ó si hay una caja cerca...
                 {
-                    //Activar animación de caja.
-                    Debug.Log("ABRIR");
+                    OpenCrate();
+                    CatchPickUp();
                 }
 
             }
@@ -45,26 +45,40 @@ public class PlayerInteractions : MonoBehaviour
             //----------------Si tenemos algo en mano-----------------------------------------------------//
             else if(detectScr.closestTable != null) //Si tenemos algo en mano y hay mesa delante.
             {
-                anim.SetBool("holding", false);
-                holdItem.GetComponent<Collider>().enabled = true;
-                holdItem.GetComponent<Rigidbody>().isKinematic = true;
-                holdItem.transform.SetParent(detectScr.closestTable.transform);
-                holdItem.transform.localPosition = new Vector3(0f, 0.5f, 0f);
-                holdItem.transform.localEulerAngles = Vector3.zero;
-                holdItem = null;
+                ReleasePickUp(detectScr.closestTable.transform, true);
             }
             else //Si no hay mesa delante.
             {
-                anim.SetBool("holding", false);
-                holdItem.transform.SetParent(null);
-                holdItem.GetComponent<Collider>().enabled = true;
-                holdItem.GetComponent<Rigidbody>().isKinematic = false;
-                holdItem = null;
+                ReleasePickUp(null, false);
             }
 
             
         }
     }
+
+    private void ReleasePickUp(Transform parent, bool asKinematic)
+    {
+        anim.SetBool("holding", false);
+        holdItem.GetComponent<Collider>().enabled = true;
+        holdItem.GetComponent<Rigidbody>().isKinematic = asKinematic;
+        holdItem.transform.SetParent(parent);
+        if(parent != null)
+        {
+            holdItem.transform.localPosition = new Vector3(0f, 0.5f, 0f);
+            holdItem.transform.localEulerAngles = Vector3.zero;
+        }
+        holdItem = null;
+    }
+
+    private void OpenCrate()
+    {
+        GameObject crate = detectScr.closestTable;
+        Animator animCrate = crate.GetComponent<Animator>();
+        IngredientCrate crateScript = crate.GetComponent<IngredientCrate>();
+        animCrate.SetTrigger("open");
+        holdItem = Instantiate(crateScript.ingredientToSpawnPrefab, crate.transform.position, Quaternion.identity);
+    }
+
     void CatchPickUp()
     {
         //Animations
