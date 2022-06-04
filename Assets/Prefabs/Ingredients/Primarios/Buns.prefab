@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1454179744201011410}
   - component: {fileID: 1454179744201011404}
   - component: {fileID: 1454179744201011405}
+  - component: {fileID: -2024698967877813341}
   m_Layer: 11
   m_Name: Buns
   m_TagString: PickUp
@@ -63,6 +64,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6058874, y: 0.33041558, z: 0.71397287}
   m_Center: {x: -0.011660099, y: 0.16506286, z: -0.029040903}
+--- !u!114 &-2024698967877813341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454179744201011411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1729b1219e24f6942af5655943da54f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 6
+  ingredientObject: {fileID: 0}
 --- !u!1 &3120604691392183269
 GameObject:
   m_ObjectHideFlags: 0

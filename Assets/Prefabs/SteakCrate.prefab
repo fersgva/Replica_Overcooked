@@ -8,9 +8,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 240238513251112490, guid: 2c57dc392ba545c4f8b0a1aafdc57578, type: 3}
+      propertyPath: ingredientToSpawn
+      value: 
+      objectReference: {fileID: -3709611307197555471, guid: 1323aabf98326f04997af5c892c1733a, type: 3}
+    - target: {fileID: 240238513251112490, guid: 2c57dc392ba545c4f8b0a1aafdc57578, type: 3}
       propertyPath: ingredientToSpawnPrefab
       value: 
       objectReference: {fileID: 974164453694135779, guid: 1323aabf98326f04997af5c892c1733a, type: 3}
+    - target: {fileID: 240238513251112490, guid: 2c57dc392ba545c4f8b0a1aafdc57578, type: 3}
+      propertyPath: ingredientScriptableObject
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3042177458016753444, guid: 2c57dc392ba545c4f8b0a1aafdc57578, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -29,7 +37,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3823845092672035871, guid: 2c57dc392ba545c4f8b0a1aafdc57578, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2.0000103
       objectReference: {fileID: 0}
     - target: {fileID: 3823845092672035871, guid: 2c57dc392ba545c4f8b0a1aafdc57578, type: 3}
       propertyPath: m_LocalPosition.y
@@ -37,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3823845092672035871, guid: 2c57dc392ba545c4f8b0a1aafdc57578, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 5.0000014
       objectReference: {fileID: 0}
     - target: {fileID: 3823845092672035871, guid: 2c57dc392ba545c4f8b0a1aafdc57578, type: 3}
       propertyPath: m_LocalRotation.w

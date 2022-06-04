@@ -43,9 +43,35 @@ public class PlayerInteractions : MonoBehaviour
             }
 
             //----------------Si tenemos algo en mano-----------------------------------------------------//
-            else if(detectScr.closestTable != null) //Si tenemos algo en mano y hay mesa delante.
+            else if(detectScr.closestTable != null) //Y hay mesa delante...
             {
-                ReleasePickUp(detectScr.closestTable.transform, true);
+                GameObject closestTable = detectScr.closestTable;
+                if(closestTable.transform.childCount == 0) // Si la mesa está libre...
+                    ReleasePickUp(closestTable.transform, true); //Lo dejamos en la mesa.
+                
+                else
+                {
+                    GameObject ingredientOnTable = closestTable.transform.GetChild(0).gameObject;
+                    
+                    //Si no, comprobar si los ingredientes se pueden mezclar...
+                    Ingredient holdIngredient = holdItem.GetComponent<Ingredient>();
+                    Ingredient ingredientToMix = ingredientOnTable.GetComponent<Ingredient>();
+
+                    //Si se pueden mezclar...
+                    Ingredient newIngredient = CraftingSystem.system.GetRecipeResult(holdIngredient, ingredientToMix);
+
+                    if (newIngredient != null)
+                    {
+                        anim.SetBool("holding", false);
+                        //Los quito de la lista.
+                        detectScr.closePickables.Remove(holdItem);
+                        detectScr.closePickables.Remove(ingredientOnTable);
+                        Destroy(holdItem);
+                        Destroy(ingredientOnTable);
+                        Instantiate(newIngredient.gameObject, closestTable.transform.position, Quaternion.identity);
+
+                    }
+                }
             }
             else //Si no hay mesa delante.
             {
@@ -76,7 +102,7 @@ public class PlayerInteractions : MonoBehaviour
         Animator animCrate = crate.GetComponent<Animator>();
         IngredientCrate crateScript = crate.GetComponent<IngredientCrate>();
         animCrate.SetTrigger("open");
-        holdItem = Instantiate(crateScript.ingredientToSpawnPrefab, crate.transform.position, Quaternion.identity);
+        holdItem = Instantiate(crateScript.ingredientToSpawn.gameObject, crate.transform.position, Quaternion.identity);
     }
 
     void CatchPickUp()

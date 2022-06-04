@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 767674780270190127}
   - component: {fileID: 2288561206944363284}
   - component: {fileID: 7682597912410546114}
+  - component: {fileID: -3709611307197555471}
   m_Layer: 11
   m_Name: Steak
   m_TagString: PickUp
@@ -62,6 +63,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.13504195, z: 0.5821991}
   m_Center: {x: 0, y: 0.06735605, z: -0.0009536743}
+--- !u!114 &-3709611307197555471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974164453694135779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1729b1219e24f6942af5655943da54f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  ingredientObject: {fileID: 0}
 --- !u!1 &6409880951368172614
 GameObject:
   m_ObjectHideFlags: 0

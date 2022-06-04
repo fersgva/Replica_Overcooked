@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1927874641311126935}
   - component: {fileID: 830686966511054072}
   - component: {fileID: 4575839402978562675}
+  - component: {fileID: 2123373437095893053}
   m_Layer: 11
   m_Name: Tomato
   m_TagString: PickUp
@@ -62,6 +63,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.37199736
   m_Center: {x: 0, y: 0.29, z: 0}
+--- !u!114 &2123373437095893053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927874641311126934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1729b1219e24f6942af5655943da54f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  ingredientObject: {fileID: 0}
 --- !u!1 &5390567223439678119
 GameObject:
   m_ObjectHideFlags: 0

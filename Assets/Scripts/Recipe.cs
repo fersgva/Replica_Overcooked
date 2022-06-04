@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IngredientCrate : MonoBehaviour
+[CreateAssetMenu(fileName = "ScriptableObjects/Recipe")]
+public class Recipe : ScriptableObject
 {
-    public Ingredient ingredientToSpawn;
+    public List<Ingredient.IngredientType> ingredientsNeeded;
+    public Ingredient result;
     // Start is called before the first frame update
     void Start()
     {
