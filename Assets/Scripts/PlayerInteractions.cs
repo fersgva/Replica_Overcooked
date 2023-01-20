@@ -69,7 +69,6 @@ public class PlayerInteractions : MonoBehaviour
 
                 if (newIngredient != null)
                 {
-                    //anim.SetBool("holding", false);
                     //Los quito de la lista.
                     detectScr.closePickables.Remove(holdItem);
                     detectScr.closePickables.Remove(ingredientOnTable);
