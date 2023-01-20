@@ -13,6 +13,9 @@ public class Ingredient : MonoBehaviour
     }
     public enum IngredientType
     {
+        //Utensilios
+        Pan,
+
         //Primarios
         Steak,
         CoockedSteak,

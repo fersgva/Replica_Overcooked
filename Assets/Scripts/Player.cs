@@ -51,6 +51,11 @@ public class Player : MonoBehaviour
         {
             interactionsScript.Interact();
         };
+
+        plControls.Gameplay.Action.performed += ctx =>
+        {
+            Debug.Log("Acción!");
+        };
     }
 
     // Start is called before the first frame update

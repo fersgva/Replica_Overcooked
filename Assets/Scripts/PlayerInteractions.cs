@@ -52,36 +52,40 @@ public class PlayerInteractions : MonoBehaviour
             GameObject closestTable = detectScr.closestTable;
             if (closestTable.transform.childCount == 0) // Si la mesa está libre...
             {
-                Debug.Log("Mesa libre!");
                 ReleasePickUp(closestTable.transform, true); //Lo dejamos en la mesa.
             }
 
-            else
+            else if(closestTable.transform.GetChild(0).TryGetComponent(out Ingredient ingredientToMix))
             {
-                GameObject ingredientOnTable = closestTable.transform.GetChild(0).gameObject;
-
-                //Si no, comprobar si los ingredientes se pueden mezclar...
-                Ingredient holdIngredient = holdItem.GetComponent<Ingredient>();
-                Ingredient ingredientToMix = ingredientOnTable.GetComponent<Ingredient>();
-
-                //Si se pueden mezclar...
-                Ingredient newIngredient = CraftingSystem.system.GetRecipeResult(holdIngredient, ingredientToMix);
-
-                if (newIngredient != null)
-                {
-                    //Los quito de la lista.
-                    detectScr.closePickables.Remove(holdItem);
-                    detectScr.closePickables.Remove(ingredientOnTable);
-                    Destroy(holdItem);
-                    Destroy(ingredientOnTable);
-                    holdItem = Instantiate(newIngredient.gameObject, closestTable.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
-                    ReleasePickUp(closestTable.transform, true);
-                }
+                MixIngredient(closestTable, ingredientToMix);
+            }
+            else //Mesa con utensilio que no es ingrediente (cuchillo, grifo, etc).
+            {
+                Debug.Log("Utilizar cuchillo");
             }
         }
         else //Si no hay mesa delante.
         {
             ReleasePickUp(null, false);
+        }
+    }
+
+    private void MixIngredient(GameObject closestTable, Ingredient ingredientToMix)
+    {
+        Ingredient holdIngredient = holdItem.GetComponent<Ingredient>();
+
+        //Intentar mezclar ingredientes
+        Ingredient newIngredient = CraftingSystem.system.GetRecipeResult(holdIngredient, ingredientToMix);
+
+        if (newIngredient != null)
+        {
+            //Los quito de la lista.
+            detectScr.closePickables.Remove(holdItem);
+            detectScr.closePickables.Remove(ingredientToMix.gameObject);
+            Destroy(holdItem);
+            Destroy(ingredientToMix.gameObject);
+            holdItem = Instantiate(newIngredient.gameObject, closestTable.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+            ReleasePickUp(closestTable.transform, true);
         }
     }
 
