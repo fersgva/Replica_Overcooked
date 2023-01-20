@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2636682ad5f9d9f459a16b36886f79c4, type: 3}
   m_Name: RedBurgerRecipe
   m_EditorClassIdentifier: 
-  ingredientsNeeded: 
-  result: {fileID: 0}
+  ingredientsNeeded: 00000000000000000000000000000000
+  result: {fileID: 4007802972132304875, guid: a41dab8be4a21fb4695d6989f15841e4, type: 3}

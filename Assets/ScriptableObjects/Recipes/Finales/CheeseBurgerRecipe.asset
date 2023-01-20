@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2636682ad5f9d9f459a16b36886f79c4, type: 3}
   m_Name: CheeseBurgerRecipe
   m_EditorClassIdentifier: 
-  ingredientsNeeded: 
+  ingredientsNeeded: 0000000000000000
   result: {fileID: 0}

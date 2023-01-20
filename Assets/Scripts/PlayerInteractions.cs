@@ -19,66 +19,70 @@ public class PlayerInteractions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+       
+    }
+
+    public void Interact()
+    {
+        //--------------------Si no tenemos nada en mano-------------------------------------------//
+        if (holdItem == null)
         {
-            //--------------------Si no tenemos nada en mano-------------------------------------------//
-            if (holdItem == null) 
+            if (detectScr.closestPickable != null) //y si hay un pick up cerca... (se le da prioridad frente a la caja)
             {
-                if (detectScr.closestPickable != null) //y si hay un pick up cerca... (se le da prioridad frente a la caja)
-                {
-                    holdItem = detectScr.closestPickable;
-                    CatchPickUp(); //Cogemos el pickup.
-                }
-                else if (detectScr.closestTable != null && detectScr.closestTable.CompareTag("Crate")) //ó si hay una caja cerca...
-                {
-                    OpenCrate();
-                    CatchPickUp();
-                }
-
+                holdItem = detectScr.closestPickable;
+                CatchPickUp(); //Cogemos el pickup.
+            }
+            else if (detectScr.closestTable != null && detectScr.closestTable.CompareTag("Crate")) //ó si hay una caja cerca...
+            {
+                OpenCrate();
+                CatchPickUp();
             }
 
-            //----------------Si tenemos algo en mano-----------------------------------------------------//
-            else if(detectScr.closestTable != null) //Y hay mesa delante...
+        }
+
+        //----------------Si tenemos algo en mano-----------------------------------------------------//
+        else if (detectScr.closestTable != null) //Y hay mesa delante...
+        {
+            GameObject closestTable = detectScr.closestTable;
+            if (closestTable.transform.childCount == 0) // Si la mesa está libre...
             {
-                GameObject closestTable = detectScr.closestTable;
-                if(closestTable.transform.childCount == 0) // Si la mesa está libre...
-                    ReleasePickUp(closestTable.transform, true); //Lo dejamos en la mesa.
-                
-                else
+                Debug.Log("Mesa libre!");
+                ReleasePickUp(closestTable.transform, true); //Lo dejamos en la mesa.
+            }
+
+            else
+            {
+                GameObject ingredientOnTable = closestTable.transform.GetChild(0).gameObject;
+
+                //Si no, comprobar si los ingredientes se pueden mezclar...
+                Ingredient holdIngredient = holdItem.GetComponent<Ingredient>();
+                Ingredient ingredientToMix = ingredientOnTable.GetComponent<Ingredient>();
+
+                //Si se pueden mezclar...
+                Ingredient newIngredient = CraftingSystem.system.GetRecipeResult(holdIngredient, ingredientToMix);
+
+                if (newIngredient != null)
                 {
-                    GameObject ingredientOnTable = closestTable.transform.GetChild(0).gameObject;
-                    
-                    //Si no, comprobar si los ingredientes se pueden mezclar...
-                    Ingredient holdIngredient = holdItem.GetComponent<Ingredient>();
-                    Ingredient ingredientToMix = ingredientOnTable.GetComponent<Ingredient>();
-
-                    //Si se pueden mezclar...
-                    Ingredient newIngredient = CraftingSystem.system.GetRecipeResult(holdIngredient, ingredientToMix);
-
-                    if (newIngredient != null)
-                    {
-                        anim.SetBool("holding", false);
-                        //Los quito de la lista.
-                        detectScr.closePickables.Remove(holdItem);
-                        detectScr.closePickables.Remove(ingredientOnTable);
-                        Destroy(holdItem);
-                        Destroy(ingredientOnTable);
-                        Instantiate(newIngredient.gameObject, closestTable.transform.position, Quaternion.identity);
-
-                    }
+                    //anim.SetBool("holding", false);
+                    //Los quito de la lista.
+                    detectScr.closePickables.Remove(holdItem);
+                    detectScr.closePickables.Remove(ingredientOnTable);
+                    Destroy(holdItem);
+                    Destroy(ingredientOnTable);
+                    holdItem = Instantiate(newIngredient.gameObject, closestTable.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+                    ReleasePickUp(closestTable.transform, true);
                 }
             }
-            else //Si no hay mesa delante.
-            {
-                ReleasePickUp(null, false);
-            }
-
-            
+        }
+        else //Si no hay mesa delante.
+        {
+            ReleasePickUp(null, false);
         }
     }
 

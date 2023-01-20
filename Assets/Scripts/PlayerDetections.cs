@@ -11,7 +11,6 @@ public class PlayerDetections : MonoBehaviour
 
     [HideInInspector] public int interactuableMask, highlightedMask;
     
-    PlayerMovement movementScr;
     Utilities utilities;
     // Start is called before the first frame update
     private void Awake()
@@ -19,7 +18,6 @@ public class PlayerDetections : MonoBehaviour
         utilities = Utilities.instance;
         interactuableMask = LayerMask.NameToLayer("Interactuable");
         highlightedMask = LayerMask.NameToLayer("HighLighted");
-        movementScr = GetComponent<PlayerMovement>();
     }
     void Start()
     {
@@ -28,11 +26,7 @@ public class PlayerDetections : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(movementScr.h != 0 || movementScr.v != 0)
-        {
-            UpdateClosestTable(closestTable);
-            UpdateClosestPickable(closestPickable);
-        }
+        
     }
 
     #region trigger detection
@@ -93,7 +87,7 @@ public class PlayerDetections : MonoBehaviour
 
 
     #region closest tables and pickables 
-    void UpdateClosestTable(GameObject currentClosest)
+    public void UpdateClosestTable(GameObject currentClosest)
     {
         //La anterior mesa que estaba más cercana.
         if (currentClosest != null)
@@ -111,7 +105,7 @@ public class PlayerDetections : MonoBehaviour
     }
 
 
-    void UpdateClosestPickable(GameObject currentClosest)
+    public void UpdateClosestPickable(GameObject currentClosest)
     {
         //El anterior pick up que estaba más cercana.
         if (currentClosest != null)

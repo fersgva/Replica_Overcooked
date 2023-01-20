@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CraftingSystem : MonoBehaviour
@@ -15,23 +16,25 @@ public class CraftingSystem : MonoBehaviour
     }
     public Ingredient GetRecipeResult(Ingredient holdIngredient, Ingredient ingredientToMix)
     {
-        foreach (Recipe recipe in recipes)
+        foreach (Recipe recipe in recipes) //Iteramos por cada receta...
         {
+            //Cogemos el listado de ingredientes de esta receta...
             List<Ingredient.IngredientType> ingredientsForThisRecipe = recipe.ingredientsNeeded;
-            foreach (Ingredient.IngredientType ingredientType in ingredientsForThisRecipe)
+
+            //y por cada tipo....
+            foreach (Ingredient.IngredientType ingredient in ingredientsForThisRecipe)
             {
-                if(ingredientType == holdIngredient.type)
+                if(ingredientToMix.type == ingredient && !holdIngredient.stackIngredients.Contains(ingredientToMix.type))
                 {
-                    ingredientsForThisRecipe.Remove(ingredientType);
+                    holdIngredient.stackIngredients.Add(ingredientToMix.type);
+
+                    //Para verificar que todos los ingredientes hasta ahora en la lista coinciden con la receta.
+                    if (holdIngredient.stackIngredients.All(recipe.ingredientsNeeded.Contains) && holdIngredient.stackIngredients.Count == recipe.ingredientsNeeded.Count)
+                    {
+                        Debug.Log("Encontrado!");
+                        return recipe.result;
+                    }
                 }
-                if (ingredientType == ingredientToMix.type)
-                {
-                    ingredientsForThisRecipe.Remove(ingredientType);
-                }
-            }
-            if(ingredientsForThisRecipe.Count == 0)
-            {
-                return recipe.result;
             }
         }
         return null;
