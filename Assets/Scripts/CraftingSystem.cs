@@ -21,20 +21,24 @@ public class CraftingSystem : MonoBehaviour
             //Cogemos el listado de ingredientes de esta receta...
             List<Ingredient.IngredientType> ingredientsForThisRecipe = recipe.ingredientsNeeded;
 
-            //y por cada tipo....
-            foreach (Ingredient.IngredientType ingredient in ingredientsForThisRecipe)
+            //Si en esta receta se encuentran los dos ingredientes a mezlc...
+            if(!holdIngredient.stackIngredients.Intersect(ingredientToMix.stackIngredients).Any() 
+                && ingredientsForThisRecipe.Intersect(holdIngredient.stackIngredients).Any() 
+                && ingredientsForThisRecipe.Intersect(ingredientToMix.stackIngredients).Any())
             {
-                if(ingredientToMix.type == ingredient && !holdIngredient.stackIngredients.Contains(ingredientToMix.type))
-                {
-                    holdIngredient.stackIngredients.Add(ingredientToMix.type);
+                //Concateno ambas listas.
+                holdIngredient.stackIngredients = holdIngredient.stackIngredients.Concat(ingredientToMix.stackIngredients).ToList();
 
-                    //Para verificar que todos los ingredientes hasta ahora en la lista coinciden con la receta.
-                    if (holdIngredient.stackIngredients.All(recipe.ingredientsNeeded.Contains) && holdIngredient.stackIngredients.Count == recipe.ingredientsNeeded.Count)
-                    {
-                        Debug.Log("Encontrado!");
-                        return recipe.result;
-                    }
-                }
+                break; //No debería seguir iterando!!!.
+            }
+        }
+        foreach (Recipe recipe in recipes)
+        {
+            //Para verificar que todos los ingredientes hasta ahora en la lista coinciden con la receta.
+            if (holdIngredient.stackIngredients.All(recipe.ingredientsNeeded.Contains) && holdIngredient.stackIngredients.Count == recipe.ingredientsNeeded.Count)
+            {
+                Debug.Log("Se forma la recta: " + recipe.name);
+                return recipe.result;
             }
         }
         return null;

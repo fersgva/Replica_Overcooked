@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Ingredient : MonoBehaviour
 {
-    public IngredientType type;
+    //public IngredientType type;
     public List<IngredientType> stackIngredients = new List<IngredientType>();
 
     private void Awake()
     {
-        stackIngredients.Add(this.type);
+        //stackIngredients.Add(this.type);
     }
     public enum IngredientType
     {

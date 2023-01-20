@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 7
-  ingredientObject: {fileID: 0}
+  stackIngredients: 0000000006000000
 --- !u!1 &2362141865080800633
 GameObject:
   m_ObjectHideFlags: 0

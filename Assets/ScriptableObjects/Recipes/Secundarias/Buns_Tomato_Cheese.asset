@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2636682ad5f9d9f459a16b36886f79c4, type: 3}
-  m_Name: CheeseBurgerRecipe
+  m_Name: Buns_Tomato_Cheese
   m_EditorClassIdentifier: 
-  ingredientsNeeded: 0000000000000000
-  result: {fileID: 0}
+  ingredientsNeeded: 060000000300000005000000
+  result: {fileID: 6197203688659908110, guid: 55be2061b2dcb35418dd50a647f93864, type: 3}
