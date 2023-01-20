@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public Vector3 direction;
     [SerializeField] ParticleSystem steps;
     Animator anim;
+
     // Start is called before the first frame update
     void Start()
     {

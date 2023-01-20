@@ -18,9 +18,18 @@ public class CraftingSystem : MonoBehaviour
         foreach (Recipe recipe in recipes)
         {
             List<Ingredient.IngredientType> ingredientsForThisRecipe = recipe.ingredientsNeeded;
-            Debug.Log(holdIngredient.type);
-            Debug.Log(holdIngredient.type);
-            if(ingredientsForThisRecipe.Contains(holdIngredient.type) && ingredientsForThisRecipe.Contains(ingredientToMix.type))
+            foreach (Ingredient.IngredientType ingredientType in ingredientsForThisRecipe)
+            {
+                if(ingredientType == holdIngredient.type)
+                {
+                    ingredientsForThisRecipe.Remove(ingredientType);
+                }
+                if (ingredientType == ingredientToMix.type)
+                {
+                    ingredientsForThisRecipe.Remove(ingredientType);
+                }
+            }
+            if(ingredientsForThisRecipe.Count == 0)
             {
                 return recipe.result;
             }

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2636682ad5f9d9f459a16b36886f79c4, type: 3}
   m_Name: Buns_CoockedSteak
   m_EditorClassIdentifier: 
-  ingredientsNeeded: 0000000006000000
+  ingredientsNeeded: 06000000
   result: {fileID: 5851520886100133234, guid: b981641fcd3888e4c8d27867ce954233, type: 3}
