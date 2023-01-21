@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class CraftingSystem : MonoBehaviour
 {
-    public static CraftingSystem system;
     public List<Recipe> recipes;
+
+    public List<Ingredient.IngredientType> chopableIngredients;
+    
+    
+    public static CraftingSystem system;
     private void Awake()
     {
         if (system == null)
@@ -21,14 +25,13 @@ public class CraftingSystem : MonoBehaviour
             //Cogemos el listado de ingredientes de esta receta...
             List<Ingredient.IngredientType> ingredientsForThisRecipe = recipe.ingredientsNeeded;
 
-            //Si en esta receta se encuentran los dos ingredientes a mezlc...
-            if(!holdIngredient.stackIngredients.Intersect(ingredientToMix.stackIngredients).Any() 
-                && ingredientsForThisRecipe.Intersect(holdIngredient.stackIngredients).Any() 
-                && ingredientsForThisRecipe.Intersect(ingredientToMix.stackIngredients).Any())
+            //Si en esta receta...
+            if(!holdIngredient.stackIngredients.Intersect(ingredientToMix.stackIngredients).Any() //´No está repetido el que sostienes.
+                && ingredientsForThisRecipe.Intersect(holdIngredient.stackIngredients).Any() //Y hay un ingrediente como el que sostienes
+                && ingredientsForThisRecipe.Intersect(ingredientToMix.stackIngredients).Any()) //Y hay un ingrediente como el que vas a mezclar...
             {
                 //Concateno ambas listas.
                 holdIngredient.stackIngredients = holdIngredient.stackIngredients.Concat(ingredientToMix.stackIngredients).ToList();
-
                 break; //No debería seguir iterando!!!.
             }
         }
@@ -43,4 +46,5 @@ public class CraftingSystem : MonoBehaviour
         }
         return null;
     }
+
 }

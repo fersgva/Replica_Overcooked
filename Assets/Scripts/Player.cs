@@ -35,8 +35,6 @@ public class Player : MonoBehaviour
         {
             Vector2 inputDirection = ctx.ReadValue<Vector2>();
             moveDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
-            detectionScript.UpdateClosestTable(detectionScript.closestTable);
-            detectionScript.UpdateClosestPickable(detectionScript.closestPickable);
         };
 
         //En un principio no haría falta, pero a veces se mueve sólo :S.
@@ -69,7 +67,18 @@ public class Player : MonoBehaviour
     {
         MovementAndRotation();
         Timers();
+        UpdateDetections();
     }
+
+    private void UpdateDetections()
+    {
+        if (moveDirection.sqrMagnitude != 0) //Sólo si hay movimiento.
+        {
+            detectionScript.UpdateClosestTable(detectionScript.closestTable);
+            detectionScript.UpdateClosestPickable(detectionScript.closestPickable);
+        }
+    }
+
     void MovementAndRotation()
     {
         controller.Move(moveDirection.normalized * speed * Time.deltaTime);

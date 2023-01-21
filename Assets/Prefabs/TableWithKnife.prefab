@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Board
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 647a44dda97f8a44a86319c533206b48, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 647a44dda97f8a44a86319c533206b48, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -85,13 +89,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: TableWithKnife
       objectReference: {fileID: 0}
+    - target: {fileID: 1144018225762499372, guid: 25d5b08f4526766469bb151ef4f00dfd, type: 3}
+      propertyPath: m_TagString
+      value: KnifeTable
+      objectReference: {fileID: 0}
     - target: {fileID: 1144018225762499379, guid: 25d5b08f4526766469bb151ef4f00dfd, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1144018225762499379, guid: 25d5b08f4526766469bb151ef4f00dfd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.000025
+      value: 9.000025
       objectReference: {fileID: 0}
     - target: {fileID: 1144018225762499379, guid: 25d5b08f4526766469bb151ef4f00dfd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -99,7 +107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1144018225762499379, guid: 25d5b08f4526766469bb151ef4f00dfd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.4999981
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 1144018225762499379, guid: 25d5b08f4526766469bb151ef4f00dfd, type: 3}
       propertyPath: m_LocalRotation.w

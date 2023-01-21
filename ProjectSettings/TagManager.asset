@@ -8,6 +8,7 @@ TagManager:
   - Dish
   - PickUp
   - Crate
+  - Knife
   layers:
   - Default
   - TransparentFX

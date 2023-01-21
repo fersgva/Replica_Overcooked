@@ -523,6 +523,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 45d05cac551b1334db825597de648638, type: 2}
   - {fileID: 11400000, guid: f96b244de1e83b845a9d43ec7268e6af, type: 2}
   - {fileID: 11400000, guid: c98815fb8fe6692479b4609ec67fdd49, type: 2}
+  chopableIngredients: 0000000002000000030000000400000005000000
 --- !u!4 &146995667
 Transform:
   m_ObjectHideFlags: 0
@@ -13020,10 +13021,6 @@ PrefabInstance:
     - target: {fileID: 4227761235809383838, guid: 0404c9343d257614a9afc3f9df60bc54, type: 3}
       propertyPath: m_Name
       value: TableWithKnife
-      objectReference: {fileID: 0}
-    - target: {fileID: 4227761235809383838, guid: 0404c9343d257614a9afc3f9df60bc54, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0404c9343d257614a9afc3f9df60bc54, type: 3}

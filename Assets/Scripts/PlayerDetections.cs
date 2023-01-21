@@ -32,20 +32,12 @@ public class PlayerDetections : MonoBehaviour
     #region trigger detection
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Table"))
+        if(other.gameObject.CompareTag("Table") || other.gameObject.CompareTag("Crate") 
+        || other.gameObject.CompareTag("KnifeTable"))
         {
             GameObject thisCloseTable = other.gameObject; 
             if(!closeTables.Contains(thisCloseTable))
                 closeTables.Add(thisCloseTable);
-
-            UpdateClosestTable(closestTable);
-        }
-        //Cajas de ingredientes. Funcionan también como mesa si tenemos algo en mano
-        if(other.gameObject.CompareTag("Crate"))
-        {
-            GameObject thisCloseCrate = other.gameObject;
-            if (!closeTables.Contains(thisCloseCrate))
-                closeTables.Add(thisCloseCrate);
 
             UpdateClosestTable(closestTable);
         }
@@ -60,18 +52,11 @@ public class PlayerDetections : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Table"))
+        if (other.gameObject.CompareTag("Table") || other.gameObject.CompareTag("Crate")
+        || other.gameObject.CompareTag("KnifeTable"))
         {
             GameObject thisCloseTable = other.gameObject;
             closeTables.Remove(thisCloseTable);
-
-            UpdateClosestTable(closestTable);
-        }
-        //Cajas de ingredientes. Funcionan también como mesa si tenemos algo en mano
-        if (other.gameObject.CompareTag("Crate"))
-        {
-            GameObject thisCloseCrate = other.gameObject;
-            closeTables.Remove(thisCloseCrate);
 
             UpdateClosestTable(closestTable);
         }

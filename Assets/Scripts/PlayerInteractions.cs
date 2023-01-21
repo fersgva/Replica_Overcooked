@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class PlayerInteractions : MonoBehaviour
 {
     GameObject holdItem;
@@ -52,21 +52,37 @@ public class PlayerInteractions : MonoBehaviour
             GameObject closestTable = detectScr.closestTable;
             if (closestTable.transform.childCount == 0) // Si la mesa está libre...
             {
-                ReleasePickUp(closestTable.transform, true); //Lo dejamos en la mesa.
+                ReleasePickUp(closestTable.transform, true, 0.5f); //Lo dejamos en la mesa.
             }
 
             else if(closestTable.transform.GetChild(0).TryGetComponent(out Ingredient ingredientToMix))
             {
                 MixIngredient(closestTable, ingredientToMix);
             }
-            else //Mesa con utensilio que no es ingrediente (cuchillo, grifo, etc).
+            else if(closestTable.transform.CompareTag("KnifeTable") && closestTable.transform.childCount == 1) //Mesa con cuchillo libre
             {
-                Debug.Log("Utilizar cuchillo");
+                ChopIngredient(closestTable);
+            }
+            else //Mesa con grifo.
+            {
+
             }
         }
         else //Si no hay mesa delante.
         {
-            ReleasePickUp(null, false);
+            ReleasePickUp(null, false, 0);
+        }
+    }
+
+    private void ChopIngredient(GameObject closestTable)
+    {
+        Ingredient holdIngredient = holdItem.GetComponent<Ingredient>();
+
+        //Si lo que tengo en mano está entre los items que se pueden cortar...
+        if (holdIngredient.stackIngredients.Count == 1 &&
+        holdIngredient.stackIngredients.Intersect(CraftingSystem.system.chopableIngredients).Any())
+        {
+            ReleasePickUp(closestTable.transform, true, 0.6f); //Lo dejamos en la mesa.
         }
     }
 
@@ -85,11 +101,11 @@ public class PlayerInteractions : MonoBehaviour
             Destroy(holdItem);
             Destroy(ingredientToMix.gameObject);
             holdItem = Instantiate(newIngredient.gameObject, closestTable.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
-            ReleasePickUp(closestTable.transform, true);
+            ReleasePickUp(closestTable.transform, true, 0.5f);
         }
     }
 
-    private void ReleasePickUp(Transform parent, bool asKinematic)
+    private void ReleasePickUp(Transform parent, bool asKinematic, float yOffset)
     {
         anim.SetBool("holding", false);
         holdItem.GetComponent<Collider>().enabled = true;
@@ -97,7 +113,7 @@ public class PlayerInteractions : MonoBehaviour
         holdItem.transform.SetParent(parent);
         if(parent != null)
         {
-            holdItem.transform.localPosition = new Vector3(0f, 0.5f, 0f);
+            holdItem.transform.localPosition = new Vector3(0f, yOffset, 0f);
             holdItem.transform.localEulerAngles = Vector3.zero;
         }
         holdItem = null;

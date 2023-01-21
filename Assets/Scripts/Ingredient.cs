@@ -7,14 +7,8 @@ public class Ingredient : MonoBehaviour
     //public IngredientType type;
     public List<IngredientType> stackIngredients = new List<IngredientType>();
 
-    private void Awake()
-    {
-        //stackIngredients.Add(this.type);
-    }
     public enum IngredientType
     {
-        //Utensilios
-        Pan,
 
         //Primarios
         Steak,
@@ -69,9 +63,12 @@ public class Ingredient : MonoBehaviour
         SimpleBurger, //Pan y carne.
         CheeseBurger, //Pan, carne y queso.
         RedBurger, //Pan, carne, queso y tomate.
-        GreenBurger //Pan, carne, cebolla, tomate y lechuga.
+        GreenBurger, //Pan, carne, cebolla, tomate y lechuga.
 
-                
+
+        //Utensilios
+        Pan
+
 
     }
     // Start is called before the first frame update
