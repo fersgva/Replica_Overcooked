@@ -2,19 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IngredientCrate : MonoBehaviour, IInteractable
+public class IngredientCrate : MonoBehaviour
 {
     public Ingredient ingredientToSpawn;
-    //PlayerDetections
-    Animator anim;
-    private void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
-        anim = GetComponent<Animator>();
+        
     }
-    public void Interact(GameObject interacter)
+
+    // Update is called once per frame
+    void Update()
     {
-        anim.SetTrigger("open");
-        interacter.GetComponent<PlayerInteractions>().holdItem = Instantiate(ingredientToSpawn.gameObject, transform.position, Quaternion.identity);
-        interacter.GetComponent<PlayerInteractions>().CatchPickUp();
+        
     }
 }
