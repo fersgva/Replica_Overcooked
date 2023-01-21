@@ -8,7 +8,7 @@ TagManager:
   - Dish
   - PickUp
   - Crate
-  - Knife
+  - KnifeTable
   layers:
   - Default
   - TransparentFX
@@ -23,7 +23,7 @@ TagManager:
   - Floor
   - Interactuable
   - Picked
-  - 
+  - WorldUIElement
   - 
   - 
   - 

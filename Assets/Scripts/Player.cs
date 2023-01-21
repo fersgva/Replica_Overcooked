@@ -52,7 +52,11 @@ public class Player : MonoBehaviour
 
         plControls.Gameplay.Action.performed += ctx =>
         {
-            Debug.Log("Acción!");
+            if (detectionScript.closestTable!=null)
+            {
+                if(detectionScript.closestTable.TryGetComponent(out IActionable actionable))
+                    actionable.TriggerAction();
+            }
         };
     }
 

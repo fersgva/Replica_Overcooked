@@ -9,10 +9,8 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] Transform holdPoint;
 
     PlayerDetections detectScr;
-    Utilities utilities;
     private void Awake()
     {
-        utilities = Utilities.instance;
         anim = GetComponent<Animator>();
         detectScr = GetComponent<PlayerDetections>();
     }
@@ -41,7 +39,6 @@ public class PlayerInteractions : MonoBehaviour
             else if (detectScr.closestTable != null && detectScr.closestTable.CompareTag("Crate")) //ó si hay una caja cerca...
             {
                 OpenCrate();
-                CatchPickUp();
             }
 
         }
@@ -59,9 +56,9 @@ public class PlayerInteractions : MonoBehaviour
             {
                 MixIngredient(closestTable, ingredientToMix);
             }
-            else if(closestTable.transform.CompareTag("KnifeTable") && closestTable.transform.childCount == 1) //Mesa con cuchillo libre
+            else if(closestTable.transform.CompareTag("KnifeTable") && closestTable.transform.childCount == 2) //Mesa con cuchillo libre
             {
-                ChopIngredient(closestTable);
+                ReleaseOnKnifeTable(closestTable);
             }
             else //Mesa con grifo.
             {
@@ -74,7 +71,7 @@ public class PlayerInteractions : MonoBehaviour
         }
     }
 
-    private void ChopIngredient(GameObject closestTable)
+    private void ReleaseOnKnifeTable(GameObject closestTable)
     {
         Ingredient holdIngredient = holdItem.GetComponent<Ingredient>();
 
@@ -85,7 +82,6 @@ public class PlayerInteractions : MonoBehaviour
             ReleasePickUp(closestTable.transform, true, 0.6f); //Lo dejamos en la mesa.
         }
     }
-
     private void MixIngredient(GameObject closestTable, Ingredient ingredientToMix)
     {
         Ingredient holdIngredient = holdItem.GetComponent<Ingredient>();
@@ -126,6 +122,7 @@ public class PlayerInteractions : MonoBehaviour
         IngredientCrate crateScript = crate.GetComponent<IngredientCrate>();
         animCrate.SetTrigger("open");
         holdItem = Instantiate(crateScript.ingredientToSpawn.gameObject, crate.transform.position, Quaternion.identity);
+        CatchPickUp();
     }
 
     void CatchPickUp()
@@ -138,7 +135,7 @@ public class PlayerInteractions : MonoBehaviour
         detectScr.closePickables.Remove(holdItem);
         
         //Change item properties.
-        utilities.ChangeAllGameObjectLayers(holdItem, detectScr.interactuableMask);
+        Utilities.ChangeAllGameObjectLayers(holdItem, detectScr.interactuableMask);
         holdItem.GetComponent<Rigidbody>().isKinematic = true;
         holdItem.GetComponent<Collider>().enabled = false;
         holdItem.transform.SetParent(holdPoint);
