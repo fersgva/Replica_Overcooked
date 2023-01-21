@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 public class PlayerInteractions : MonoBehaviour
 {
-    GameObject holdItem;
+    [HideInInspector] public GameObject holdItem;
     Animator anim;
     [SerializeField] Transform holdPoint;
 
@@ -38,10 +38,9 @@ public class PlayerInteractions : MonoBehaviour
                 holdItem = detectScr.closestPickable;
                 CatchPickUp(); //Cogemos el pickup.
             }
-            else if (detectScr.closestTable != null && detectScr.closestTable.CompareTag("Crate")) //ó si hay una caja cerca...
+            else if (detectScr.closestTable != null) //ó si hay una caja cerca...
             {
-                OpenCrate();
-                CatchPickUp();
+                detectScr.closestTable.GetComponent<IInteractable>().Interact(gameObject);
             }
 
         }
@@ -49,24 +48,7 @@ public class PlayerInteractions : MonoBehaviour
         //----------------Si tenemos algo en mano-----------------------------------------------------//
         else if (detectScr.closestTable != null) //Y hay mesa delante...
         {
-            GameObject closestTable = detectScr.closestTable;
-            if (closestTable.transform.childCount == 0) // Si la mesa está libre...
-            {
-                ReleasePickUp(closestTable.transform, true, 0.5f); //Lo dejamos en la mesa.
-            }
-
-            else if(closestTable.transform.GetChild(0).TryGetComponent(out Ingredient ingredientToMix))
-            {
-                MixIngredient(closestTable, ingredientToMix);
-            }
-            else if(closestTable.transform.CompareTag("KnifeTable") && closestTable.transform.childCount == 1) //Mesa con cuchillo libre
-            {
-                ChopIngredient(closestTable);
-            }
-            else //Mesa con grifo.
-            {
-
-            }
+            detectScr.closestTable.GetComponent<IInteractable>().Interact(gameObject);
         }
         else //Si no hay mesa delante.
         {
@@ -86,7 +68,7 @@ public class PlayerInteractions : MonoBehaviour
         }
     }
 
-    private void MixIngredient(GameObject closestTable, Ingredient ingredientToMix)
+    public void MixIngredient(GameObject closestTable, Ingredient ingredientToMix)
     {
         Ingredient holdIngredient = holdItem.GetComponent<Ingredient>();
 
@@ -105,7 +87,7 @@ public class PlayerInteractions : MonoBehaviour
         }
     }
 
-    private void ReleasePickUp(Transform parent, bool asKinematic, float yOffset)
+    public void ReleasePickUp(Transform parent, bool asKinematic, float yOffset)
     {
         anim.SetBool("holding", false);
         holdItem.GetComponent<Collider>().enabled = true;
@@ -119,16 +101,17 @@ public class PlayerInteractions : MonoBehaviour
         holdItem = null;
     }
 
-    private void OpenCrate()
-    {
-        GameObject crate = detectScr.closestTable;
-        Animator animCrate = crate.GetComponent<Animator>();
-        IngredientCrate crateScript = crate.GetComponent<IngredientCrate>();
-        animCrate.SetTrigger("open");
-        holdItem = Instantiate(crateScript.ingredientToSpawn.gameObject, crate.transform.position, Quaternion.identity);
-    }
+    //private void OpenCrate()
+    //{
+    //    GameObject crate = detectScr.closestTable;
+    //    Animator animCrate = crate.GetComponent<Animator>();
+    //    IngredientCrate crateScript = crate.GetComponent<IngredientCrate>();
+    //    animCrate.SetTrigger("open");
+    //    holdItem = Instantiate(crateScript.ingredientToSpawn.gameObject, crate.transform.position, Quaternion.identity);
+    //    CatchPickUp();
+    //}
 
-    void CatchPickUp()
+    public void CatchPickUp()
     {
         //Animations
         anim.SetBool("holding", true);
