@@ -512,7 +512,7 @@ GameObject:
   - component: {fileID: 2503709809617905720}
   m_Layer: 11
   m_Name: Buns_Tomato
-  m_TagString: PickUp
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -578,3 +578,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stackIngredients: 0600000003000000
+  progressBarCanvas: {fileID: 0}
+  ingredientAfterAction: {fileID: 0}

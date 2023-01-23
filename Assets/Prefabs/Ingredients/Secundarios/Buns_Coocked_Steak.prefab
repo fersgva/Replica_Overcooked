@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5851520886100133234}
   m_Layer: 11
   m_Name: Buns_Coocked_Steak
-  m_TagString: PickUp
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,8 +77,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1729b1219e24f6942af5655943da54f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 7
   stackIngredients: 0000000006000000
+  progressBarCanvas: {fileID: 0}
+  ingredientAfterAction: {fileID: 0}
 --- !u!1 &2362141865080800633
 GameObject:
   m_ObjectHideFlags: 0

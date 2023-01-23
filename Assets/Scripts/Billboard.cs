@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class Billboard : MonoBehaviour
 {
-    [SerializeField] Camera ortographicCam;
-    [SerializeField] Camera mainCamera;
-    Quaternion initRotation;
+    Camera ortographicCam;
+    Camera mainCamera;
     Transform parent;
     Vector3 pixelsOffset = new Vector3(0, 0.1f, 0);
     private void Awake()
     {
+        mainCamera = Camera.main;
+        ortographicCam = GameObject.FindWithTag("OrtographicCamera").GetComponent<Camera>();
         parent = transform.parent;
     }
     // Start is called before the first frame update
     void Start()
     {
-        initRotation = transform.rotation;
+
     }
 
     // Update is called once per frame

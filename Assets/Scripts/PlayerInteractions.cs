@@ -49,62 +49,87 @@ public class PlayerInteractions : MonoBehaviour
             GameObject closestTable = detectScr.closestTable;
             if (closestTable.transform.childCount == 0) // Si la mesa está libre...
             {
-                ReleasePickUp(closestTable.transform, true, 0.5f); //Lo dejamos en la mesa.
+                ReleasePickUp(closestTable.transform, true, true, 0.5f); //Lo dejamos en la mesa.
             }
 
+            //Si no está libre, mira a ver si es otro ingrediente...
             else if(closestTable.transform.GetChild(0).TryGetComponent(out Ingredient ingredientToMix))
             {
                 MixIngredient(closestTable, ingredientToMix);
             }
+            //O mira a ver si es una mesa con cuchillo
             else if(closestTable.transform.CompareTag("KnifeTable") && closestTable.transform.childCount == 2) //Mesa con cuchillo libre
             {
                 ReleaseOnKnifeTable(closestTable);
             }
-            else //Mesa con grifo.
+            //O una mesa con plato...
+            else if (closestTable.transform.GetChild(0).CompareTag("Plate"))
             {
-
+                ReleaseOnPlate(closestTable);
             }
         }
         else //Si no hay mesa delante.
         {
-            ReleasePickUp(null, false, 0);
+            ReleasePickUp(null, false, true, 0);
         }
     }
 
     private void ReleaseOnKnifeTable(GameObject closestTable)
     {
-        Ingredient holdIngredient = holdItem.GetComponent<Ingredient>();
-
-        //Si lo que tengo en mano está entre los items que se pueden cortar...
-        if (holdIngredient.stackIngredients.Count == 1 &&
-        holdIngredient.stackIngredients.Intersect(CraftingSystem.system.chopableIngredients).Any())
+        //Porque no tenemos por qué tener un ingrediente en mano, puede ser otra cosa.
+        if(holdItem.TryGetComponent(out Ingredient holdIngredient))
         {
-            ReleasePickUp(closestTable.transform, true, 0.6f); //Lo dejamos en la mesa.
+            //Si lo que tengo en mano está entre los items que se pueden cortar...
+            if (holdIngredient.stackIngredients.Count == 1 &&
+            holdIngredient.stackIngredients.Intersect(CraftingSystem.system.chopableIngredients).Any())
+            {
+                ReleasePickUp(closestTable.transform, true, true, 0.6f); //Lo dejamos en la mesa.
+            }
+
+        }
+
+    }
+
+    void ReleaseOnPlate(GameObject closestTable)
+    {
+        //Porque no tenemos por qué tener un ingrediente en mano, puede ser otra cosa.
+        if (holdItem.TryGetComponent(out Ingredient holdIngredient))
+        {
+            //Si lo que tengo en mano está entre los items que se pueden cortar y que pueden estar sobre plato.
+            if (holdIngredient.stackIngredients.Count == 1 &&
+            holdIngredient.stackIngredients.Intersect(CraftingSystem.system.canBeOnPlateIngredients).Any())
+            {
+                ReleasePickUp(closestTable.transform.GetChild(0), true, false, 0.03f); //Lo dejamos en la mesa.
+            }
+
         }
     }
     private void MixIngredient(GameObject closestTable, Ingredient ingredientToMix)
     {
-        Ingredient holdIngredient = holdItem.GetComponent<Ingredient>();
-
-        //Intentar mezclar ingredientes
-        Ingredient newIngredient = CraftingSystem.system.GetRecipeResult(holdIngredient, ingredientToMix);
-
-        if (newIngredient != null)
+        //Porque no tenemos por qué tener un ingrediente en mano, puede ser otra cosa.
+        if (holdItem.TryGetComponent(out Ingredient holdIngredient))
         {
-            //Los quito de la lista.
-            detectScr.closePickables.Remove(holdItem);
-            detectScr.closePickables.Remove(ingredientToMix.gameObject);
-            Destroy(holdItem);
-            Destroy(ingredientToMix.gameObject);
-            holdItem = Instantiate(newIngredient.gameObject, closestTable.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
-            ReleasePickUp(closestTable.transform, true, 0.5f);
+
+            //Intentar mezclar ingredientes
+            Ingredient newIngredient = CraftingSystem.system.GetRecipeResult(holdIngredient, ingredientToMix);
+
+            if (newIngredient != null)
+            {
+                //Los quito de la lista.
+                detectScr.closePickables.Remove(holdItem);
+                detectScr.closePickables.Remove(ingredientToMix.gameObject);
+                Destroy(holdItem);
+                Destroy(ingredientToMix.gameObject);
+                holdItem = Instantiate(newIngredient.gameObject, closestTable.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+                ReleasePickUp(closestTable.transform, true, true, 0.5f);
+            }
         }
     }
 
-    private void ReleasePickUp(Transform parent, bool asKinematic, float yOffset)
+    private void ReleasePickUp(Transform parent, bool asKinematic, bool enableColl, float yOffset)
     {
         anim.SetBool("holding", false);
-        holdItem.GetComponent<Collider>().enabled = true;
+        holdItem.GetComponent<Collider>().enabled = enableColl;
         holdItem.GetComponent<Rigidbody>().isKinematic = asKinematic;
         holdItem.transform.SetParent(parent);
         if(parent != null)

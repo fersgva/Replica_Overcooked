@@ -5,10 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Table
-  - Dish
   - PickUp
   - Crate
   - KnifeTable
+  - OrtographicCamera
+  - Plate
+  - Ingredient
+  - Utensil
   layers:
   - Default
   - TransparentFX

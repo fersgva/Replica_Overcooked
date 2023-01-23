@@ -8,8 +8,14 @@ public class CraftingSystem : MonoBehaviour
     public List<Recipe> recipes;
 
     public List<Ingredient.IngredientType> chopableIngredients;
-    
-    
+
+    public List<Ingredient.IngredientType> canBeOnPlateIngredients;
+
+    public List<Ingredient.IngredientType> canBeOnPanIngredients;
+
+    public List<Ingredient.IngredientType> canBeOnSaucepanIngredients;
+
+
     public static CraftingSystem system;
     private void Awake()
     {

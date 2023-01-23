@@ -10,15 +10,16 @@ public class Player : MonoBehaviour
     CharacterController controller;
     float turnVelocity;
     float turnSmooth = 0.05f;
+    float chopDuration = 2f;
     [HideInInspector] public Vector3 moveDirection;
     [SerializeField] ParticleSystem steps;
-    Animator anim;
+    [HideInInspector] public Animator anim;
 
     [HideInInspector] public PlayerControls plControls;
     PlayerInteractions interactionsScript;
     PlayerDetections detectionScript;
     //float gravityFactor = -9.8f;
-    //Coroutine rotateTowardsDirCoroutine;
+    Coroutine choppingCoroutine;
     //bool prueba = false;
     private void Awake()
     {
@@ -35,6 +36,11 @@ public class Player : MonoBehaviour
         {
             Vector2 inputDirection = ctx.ReadValue<Vector2>();
             moveDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
+            if(choppingCoroutine != null)
+            {
+                StopCoroutine(choppingCoroutine);
+                anim.SetBool("chopping", false);
+            }
         };
 
         //En un principio no haría falta, pero a veces se mueve sólo :S.
@@ -52,10 +58,11 @@ public class Player : MonoBehaviour
 
         plControls.Gameplay.Action.performed += ctx =>
         {
-            if (detectionScript.closestTable!=null)
+            if (detectionScript.closestTable!=null && detectionScript.closestTable.transform.childCount == 3)
             {
-                if(detectionScript.closestTable.TryGetComponent(out IActionable actionable))
-                    actionable.TriggerAction();
+                anim.SetBool("chopping", true);
+                Ingredient ingredientOnTable = detectionScript.closestTable.transform.GetChild(2).GetComponent<Ingredient>();
+                    choppingCoroutine = StartCoroutine(ingredientOnTable.TriggerAction(this, detectionScript, chopDuration));
             }
         };
     }

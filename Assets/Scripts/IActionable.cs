@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IActionable
 {
-    public GameObject TriggerAction();
+    public IEnumerator TriggerAction(float duration);
 }

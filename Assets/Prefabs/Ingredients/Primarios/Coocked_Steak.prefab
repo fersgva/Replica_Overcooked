@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4321748213426091256}
   - component: {fileID: 4288244551184705542}
   - component: {fileID: 4298242209530000236}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Coocked_Steak
-  m_TagString: Untagged
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
