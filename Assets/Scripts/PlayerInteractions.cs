@@ -28,7 +28,7 @@ public class PlayerInteractions : MonoBehaviour
 
     public void Interact()
     {
-        //--------------------Si no tenemos nada en mano-------------------------------------------//
+        //MANO: NADA
         if (holdItem == null)
         {
             if (detectScr.closestPickable != null) //y si hay un pick up cerca... (se le da prioridad frente a la caja)
@@ -43,29 +43,40 @@ public class PlayerInteractions : MonoBehaviour
 
         }
 
-        //----------------Si tenemos algo en mano-----------------------------------------------------//
-        else if (detectScr.closestTable != null) //Y hay mesa delante...
+        //MANO: ALGO
+        else if (detectScr.closestTable != null)
         {
             GameObject closestTable = detectScr.closestTable;
-            if (closestTable.transform.childCount == 0) // Si la mesa está libre...
+            if (closestTable.transform.childCount == 0) //MESA: VACÍA
             {
-                ReleasePickUp(closestTable.transform, true, true, 0.5f); //Lo dejamos en la mesa.
+                ReleasePickUp(closestTable.transform, true, true, 0.5f);
             }
 
-            //Si no está libre, mira a ver si es otro ingrediente...
-            else if(closestTable.transform.GetChild(0).TryGetComponent(out Ingredient ingredientToMix))
+            else if (holdItem.TryGetComponent(out Ingredient holdIngredient)) //MANO: INGREDIENTE
             {
-                MixIngredient(closestTable, ingredientToMix);
+                //MESA: INGREDIENTE
+                if (closestTable.transform.GetChild(0).TryGetComponent(out Ingredient ingredientToMix))
+                {
+                    MixIngredient(closestTable, holdIngredient, ingredientToMix);
+                }
+                //MESA: PLATO
+                else if (closestTable.transform.GetChild(0).CompareTag("Plate"))
+                {
+                    ReleaseOnPlate(holdIngredient, closestTable);
+                }
+                //MESA: CUCHILLO
+                else if (closestTable.transform.CompareTag("KnifeTable") && closestTable.transform.childCount == 2) 
+                {
+                    ReleaseOnKnifeTable(holdIngredient, closestTable);
+                }
             }
-            //O mira a ver si es una mesa con cuchillo
-            else if(closestTable.transform.CompareTag("KnifeTable") && closestTable.transform.childCount == 2) //Mesa con cuchillo libre
+            else if(holdItem.CompareTag("Plate")) //MANO: PLATO.
             {
-                ReleaseOnKnifeTable(closestTable);
-            }
-            //O una mesa con plato...
-            else if (closestTable.transform.GetChild(0).CompareTag("Plate"))
-            {
-                ReleaseOnPlate(closestTable);
+                //MESA: INGREDIENTE
+                if (closestTable.transform.GetChild(0).TryGetComponent(out Ingredient ingredientOnTable))
+                {
+                    ReleaseOnPlate(ingredientOnTable, closestTable);
+                }
             }
         }
         else //Si no hay mesa delante.
@@ -74,55 +85,40 @@ public class PlayerInteractions : MonoBehaviour
         }
     }
 
-    private void ReleaseOnKnifeTable(GameObject closestTable)
+    private void ReleaseOnKnifeTable(Ingredient holdIngredient, GameObject closestTable)
     {
-        //Porque no tenemos por qué tener un ingrediente en mano, puede ser otra cosa.
-        if(holdItem.TryGetComponent(out Ingredient holdIngredient))
+        //Si lo que tengo en mano está entre los items que se pueden cortar...
+        if (holdIngredient.stackIngredients.Count == 1 &&
+        holdIngredient.stackIngredients.Intersect(CraftingSystem.system.chopableIngredients).Any())
         {
-            //Si lo que tengo en mano está entre los items que se pueden cortar...
-            if (holdIngredient.stackIngredients.Count == 1 &&
-            holdIngredient.stackIngredients.Intersect(CraftingSystem.system.chopableIngredients).Any())
-            {
-                ReleasePickUp(closestTable.transform, true, true, 0.6f); //Lo dejamos en la mesa.
-            }
-
+            ReleasePickUp(closestTable.transform, true, true, 0.6f); //Lo dejamos en la mesa.
         }
 
     }
 
-    void ReleaseOnPlate(GameObject closestTable)
+    void ReleaseOnPlate(Ingredient ingredientToPutOnPlate, GameObject closestTable)
     {
-        //Porque no tenemos por qué tener un ingrediente en mano, puede ser otra cosa.
-        if (holdItem.TryGetComponent(out Ingredient holdIngredient))
+        //Si lo que tengo en mano está entre los items que se pueden cortar y que pueden estar sobre plato.
+        if (ingredientToPutOnPlate.stackIngredients.Count == 1 &&
+        ingredientToPutOnPlate.stackIngredients.Intersect(CraftingSystem.system.canBeOnPlateIngredients).Any())
         {
-            //Si lo que tengo en mano está entre los items que se pueden cortar y que pueden estar sobre plato.
-            if (holdIngredient.stackIngredients.Count == 1 &&
-            holdIngredient.stackIngredients.Intersect(CraftingSystem.system.canBeOnPlateIngredients).Any())
-            {
-                ReleasePickUp(closestTable.transform.GetChild(0), true, false, 0.03f); //Lo dejamos en la mesa.
-            }
-
+            ReleasePickUp(closestTable.transform.GetChild(0), true, false, 0.03f); //Lo dejamos en la mesa.
         }
     }
-    private void MixIngredient(GameObject closestTable, Ingredient ingredientToMix)
+    private void MixIngredient(GameObject closestTable, Ingredient holdIngredient, Ingredient ingredientToMix)
     {
-        //Porque no tenemos por qué tener un ingrediente en mano, puede ser otra cosa.
-        if (holdItem.TryGetComponent(out Ingredient holdIngredient))
+        //Intentar mezclar ingredientes
+        Ingredient newIngredient = CraftingSystem.system.GetRecipeResult(holdIngredient, ingredientToMix);
+
+        if (newIngredient != null)
         {
-
-            //Intentar mezclar ingredientes
-            Ingredient newIngredient = CraftingSystem.system.GetRecipeResult(holdIngredient, ingredientToMix);
-
-            if (newIngredient != null)
-            {
-                //Los quito de la lista.
-                detectScr.closePickables.Remove(holdItem);
-                detectScr.closePickables.Remove(ingredientToMix.gameObject);
-                Destroy(holdItem);
-                Destroy(ingredientToMix.gameObject);
-                holdItem = Instantiate(newIngredient.gameObject, closestTable.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
-                ReleasePickUp(closestTable.transform, true, true, 0.5f);
-            }
+            //Los quito de la lista.
+            detectScr.closePickables.Remove(holdItem);
+            detectScr.closePickables.Remove(ingredientToMix.gameObject);
+            Destroy(holdItem);
+            Destroy(ingredientToMix.gameObject);
+            holdItem = Instantiate(newIngredient.gameObject, closestTable.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+            ReleasePickUp(closestTable.transform, true, true, 0.5f);
         }
     }
 
@@ -131,6 +127,7 @@ public class PlayerInteractions : MonoBehaviour
         anim.SetBool("holding", false);
         holdItem.GetComponent<Collider>().enabled = enableColl;
         holdItem.GetComponent<Rigidbody>().isKinematic = asKinematic;
+        //parent.SetParent(holdItem.transform);
         holdItem.transform.SetParent(parent);
         if(parent != null)
         {
