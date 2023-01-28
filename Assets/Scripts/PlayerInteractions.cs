@@ -69,6 +69,12 @@ public class PlayerInteractions : MonoBehaviour
                 {
                     ReleaseOnKnifeTable(holdIngredient, closestTable);
                 }
+                //MESA: SARTÉN
+                else if(closestTable.transform.GetChild(0).CompareTag("Pan"))
+                {
+                    Debug.Log("DETECTO SARTÉN");
+                    ReleaseOnPan(holdIngredient, closestTable);
+                }
             }
             else if(holdItem.CompareTag("Plate")) //MANO: PLATO.
             {
@@ -103,6 +109,17 @@ public class PlayerInteractions : MonoBehaviour
         ingredientToPutOnPlate.stackIngredients.Intersect(CraftingSystem.system.canBeOnPlateIngredients).Any())
         {
             ReleasePickUp(closestTable.transform.GetChild(0), true, false, 0.03f); //Lo dejamos en la mesa.
+        }
+    }
+
+    void ReleaseOnPan(Ingredient holdIngredient, GameObject closestTable)
+    {
+        //Si lo que tengo en mano está entre los items que se pueden cortar...
+        if (holdIngredient.stackIngredients.Count == 1 &&
+        holdIngredient.stackIngredients.Intersect(CraftingSystem.system.canBeOnPanIngredients).Any())
+        {
+            Debug.Log("pUEDO!");
+            ReleasePickUp(closestTable.transform.GetChild(0), true, false, 0.3f);
         }
     }
     private void MixIngredient(GameObject closestTable, Ingredient holdIngredient, Ingredient ingredientToMix)

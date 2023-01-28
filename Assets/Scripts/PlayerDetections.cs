@@ -39,8 +39,8 @@ public class PlayerDetections : MonoBehaviour
 
             UpdateClosestTable(closestTable);
         }
-        if (other.gameObject.CompareTag("Ingredient") ||
-            other.gameObject.CompareTag("Plate"))
+        if (other.gameObject.CompareTag("Ingredient") || other.gameObject.CompareTag("Pan")
+        ||   other.gameObject.CompareTag("Plate"))
         {
             GameObject thisClosePickUp = other.gameObject;
             if (!closePickables.Contains(thisClosePickUp))
@@ -59,8 +59,8 @@ public class PlayerDetections : MonoBehaviour
 
             UpdateClosestTable(closestTable);
         }
-        if (other.gameObject.CompareTag("Ingredient") ||
-            other.gameObject.CompareTag("Plate"))
+        if (other.gameObject.CompareTag("Ingredient") || other.gameObject.CompareTag("Pan")
+        || other.gameObject.CompareTag("Plate"))
         {
             GameObject thisClosePickUp = other.gameObject;
             closePickables.Remove(thisClosePickUp);

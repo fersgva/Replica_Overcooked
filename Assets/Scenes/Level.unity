@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.2850269, g: 0.3713935, b: 0.49601045, a: 1}
+  m_IndirectSpecularColor: {r: 0.28502697, g: 0.37139347, b: 0.49601266, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -525,7 +525,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c98815fb8fe6692479b4609ec67fdd49, type: 2}
   chopableIngredients: 0000000002000000030000000400000005000000
   canBeOnPlateIngredients: 0100000006000000090000000a0000000b0000000c0000000d000000
-  canBeOnPanIngredients: 
+  canBeOnPanIngredients: 00000000
   canBeOnSaucepanIngredients: 
 --- !u!4 &146995667
 Transform:

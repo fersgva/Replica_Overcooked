@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2529799871449171155}
   m_Layer: 11
   m_Name: Pan
-  m_TagString: PickUp
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,10 +92,9 @@ GameObject:
   - component: {fileID: 2529799871505106353}
   - component: {fileID: 2529799871505106354}
   - component: {fileID: 2529799871505106355}
-  - component: {fileID: 1686331850404719973}
   m_Layer: 11
   m_Name: Pan
-  m_TagString: PickUp
+  m_TagString: Pan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,20 +144,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1686331850404719973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2529799871505106364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1729b1219e24f6942af5655943da54f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stackIngredients: 00000000
-  progressBarCanvas: {fileID: 3846861899993356286}
 --- !u!1001 &5955415106935589288
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -256,11 +241,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1abdcd18c5b5b143b73dcc6c0eec058, type: 3}
---- !u!1 &3846861899993356286 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7477997351843569238, guid: a1abdcd18c5b5b143b73dcc6c0eec058, type: 3}
-  m_PrefabInstance: {fileID: 5955415106935589288}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3846861899993356283 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7477997351843569235, guid: a1abdcd18c5b5b143b73dcc6c0eec058, type: 3}

@@ -11,7 +11,7 @@ TagManager:
   - OrtographicCamera
   - Plate
   - Ingredient
-  - Utensil
+  - Pan
   layers:
   - Default
   - TransparentFX

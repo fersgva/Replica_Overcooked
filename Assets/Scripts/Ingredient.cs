@@ -12,6 +12,7 @@ public class Ingredient : MonoBehaviour
     [SerializeField] GameObject progressBarCanvas;
     [SerializeField] GameObject ingredientAfterAction;
     Slider slider;
+    float actionProgression;
 
     public enum IngredientType
     {
@@ -99,16 +100,17 @@ public class Ingredient : MonoBehaviour
 
         progressBarCanvas.SetActive(true);
 
-        float initValue = slider.value;
+        float initValue = 0;
         float finalValue = 1f;
-        float timer = 0;
-        while (timer < duration)
+        while (actionProgression < duration)
         {
-            slider.value = Mathf.Lerp(initValue, finalValue, timer / duration);
-            timer += Time.deltaTime;
+            Debug.Log(actionProgression);
+            slider.value = Mathf.Lerp(initValue, finalValue, actionProgression / duration);
+            actionProgression += Time.deltaTime;
             yield return null;
         }
-        //Mejor con Destroy e Instantiate.
+        actionProgression = 0; //Por si más adelante tenemos que hacer a este ingrediente otras acciones.
+
         GameObject newIngredient = Instantiate(ingredientAfterAction, transform.position, Quaternion.identity);
 
         //Importante: Tenemos que actualizar la lista.
