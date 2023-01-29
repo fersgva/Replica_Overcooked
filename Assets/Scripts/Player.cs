@@ -19,7 +19,8 @@ public class Player : MonoBehaviour
     PlayerInteractions interactionsScript;
     PlayerDetections detectionScript;
     //float gravityFactor = -9.8f;
-    Coroutine choppingCoroutine;
+    Coroutine actionCoroutine;
+
     //bool prueba = false;
     private void Awake()
     {
@@ -36,11 +37,7 @@ public class Player : MonoBehaviour
         {
             Vector2 inputDirection = ctx.ReadValue<Vector2>();
             moveDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
-            if(choppingCoroutine != null)
-            {
-                StopCoroutine(choppingCoroutine);
-                anim.SetBool("chopping", false);
-            }
+            StopActions();
         };
 
         //En un principio no haría falta, pero a veces se mueve sólo :S.
@@ -53,16 +50,22 @@ public class Player : MonoBehaviour
 
         plControls.Gameplay.Interact.performed += ctx =>
         {
+            StopActions();
             interactionsScript.Interact();
         };
 
         plControls.Gameplay.Action.performed += ctx =>
         {
-            if (detectionScript.closestTable!=null && detectionScript.closestTable.transform.childCount == 3)
+            if (detectionScript.closestTable)
             {
-                anim.SetBool("chopping", true);
-                Ingredient ingredientOnTable = detectionScript.closestTable.transform.GetChild(2).GetComponent<Ingredient>();
-                    choppingCoroutine = StartCoroutine(ingredientOnTable.TriggerAction(this, detectionScript, chopDuration));
+                if (detectionScript.closestTable.TryGetComponent(out IActionable actionable))
+                {
+                    Debug.Log("Interfaz encontrada");
+                    Ingredient ingredientToTriggerAction = actionable.TriggerAction();
+                    if(ingredientToTriggerAction)
+                        actionCoroutine = StartCoroutine(ingredientToTriggerAction.TriggerAction(this, detectionScript, ingredientToTriggerAction.chopDuration));
+                }
+                
             }
         };
     }
@@ -72,7 +75,6 @@ public class Player : MonoBehaviour
     {
 
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -131,6 +133,14 @@ public class Player : MonoBehaviour
         }
     }
 
+    void StopActions()
+    {
+        if (actionCoroutine != null)
+        {
+            StopCoroutine(actionCoroutine);
+            anim.SetBool("chopping", false);
+        }
+    }
     //IEnumerator RotateTowardsDirection()
     //{
     //    Quaternion initRotation = transform.rotation;

@@ -14,6 +14,8 @@ public class Ingredient : MonoBehaviour
     Slider slider;
     float actionProgression;
 
+    public float chopDuration;
+
     public enum IngredientType
     {
 
@@ -97,11 +99,12 @@ public class Ingredient : MonoBehaviour
 
     public IEnumerator TriggerAction(Player pl, PlayerDetections plDetections, float duration)
     {
-
-        progressBarCanvas.SetActive(true);
-
         float initValue = 0;
         float finalValue = 1f;
+        
+        pl.anim.SetBool("chopping", true);
+        progressBarCanvas.SetActive(true);
+
         while (actionProgression < duration)
         {
             Debug.Log(actionProgression);
@@ -111,7 +114,7 @@ public class Ingredient : MonoBehaviour
         }
         actionProgression = 0; //Por si más adelante tenemos que hacer a este ingrediente otras acciones.
 
-        GameObject newIngredient = Instantiate(ingredientAfterAction, transform.position, Quaternion.identity);
+        Instantiate(ingredientAfterAction, transform.position, Quaternion.identity);
 
         //Importante: Tenemos que actualizar la lista.
         //plDetections.closePickables.Add(newIngredient);
@@ -119,16 +122,5 @@ public class Ingredient : MonoBehaviour
 
         pl.anim.SetBool("chopping", false);
         Destroy(gameObject);
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

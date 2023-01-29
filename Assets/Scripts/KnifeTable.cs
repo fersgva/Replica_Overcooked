@@ -2,40 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KnifeTable : MonoBehaviour, IActionable
+public class KnifeTable : Table, IInteractable, IActionable
 {
     [SerializeField] GameObject progressBar;
+    public IActionable target;
+
+   
     //Slider slider;
     private void Awake()
     {
         //slider = progressBar.GetComponentInChildren<Slider>();
     }
 
-    public IEnumerator TriggerAction(float duration)
+    public Ingredient TriggerAction()
     {
+        if (transform.childCount < 3) return null;
 
-        //progressBar.SetActive(true);
-
-        ////float initValue = slider.value;
-        //float finalValue = 1f;
-        //float timer = 0;
-        //while (timer < duration)
-        //{
-        //    //slider.value = Mathf.Lerp(initValue, finalValue, timer / duration);
-        //    timer += Time.deltaTime;
-        //    yield return null;
-        //}
-        yield return null;
+        if (transform.GetChild(2).TryGetComponent(out Ingredient ingredientOnTable))
+        {
+            return ingredientOnTable;
+        }
+        else
+        {
+            return null;
+        }
     }
-    // Start is called before the first frame update
-    void Start()
+    public override void Interact(PlayerInteractions interacter, GameObject otherObject)
     {
-        
+        interacter.ReleaseOnKnifeTable(otherObject.GetComponent<Ingredient>(), gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

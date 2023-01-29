@@ -79,6 +79,7 @@ MonoBehaviour:
   stackIngredients: 03000000
   progressBarCanvas: {fileID: 8166532683514215171}
   ingredientAfterAction: {fileID: 5631898614623461912, guid: 7a490ab67dd2adb4eb03b9f9a594120e, type: 3}
+  chopDuration: 4
 --- !u!1 &5390567223439678119
 GameObject:
   m_ObjectHideFlags: 0
