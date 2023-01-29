@@ -104,10 +104,6 @@ public class Player : MonoBehaviour
             float angle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
             float angleSmoothed = Mathf.SmoothDampAngle(transform.eulerAngles.y, angle, ref turnVelocity, turnSmooth);
             transform.rotation = Quaternion.Euler(0, angleSmoothed, 0);
-            //if (rotateTowardsDirCoroutine != null)
-            //    StopCoroutine(RotateTowardsDirection());
-
-            //rotateTowardsDirCoroutine = StartCoroutine(RotateTowardsDirection());
         }
         else
         {

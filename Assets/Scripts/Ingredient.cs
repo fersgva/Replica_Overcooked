@@ -117,7 +117,6 @@ public class Ingredient : MonoBehaviour
         Instantiate(ingredientAfterAction, transform.position, Quaternion.identity);
 
         //Importante: Tenemos que actualizar la lista.
-        //plDetections.closePickables.Add(newIngredient);
         plDetections.closePickables.Remove(gameObject);
 
         pl.anim.SetBool("chopping", false);

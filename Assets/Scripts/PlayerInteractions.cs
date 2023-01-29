@@ -33,6 +33,7 @@ public class PlayerInteractions : MonoBehaviour
         {
             if (detectScr.closestPickable) //y si hay un pick up cerca... (se le da prioridad frente a la caja)
             {
+                holdItem = detectScr.closestPickable;
                 CatchPickUp(); //Cogemos el pickup.
             }
             else if (detectScr.closestTable && detectScr.closestTable.CompareTag("Crate")) //ó si hay una caja cerca...
@@ -130,7 +131,6 @@ public class PlayerInteractions : MonoBehaviour
 
     void CatchPickUp()
     {
-        holdItem = detectScr.closestPickable;
         //Animations
         anim.SetBool("holding", true);
 
