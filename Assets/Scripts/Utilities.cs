@@ -51,6 +51,21 @@ public static class Utilities
         }
     }
 
+    public static Texture2D RemoveBackground(RenderTexture renderTexture, Texture2D renderResult)
+    {
+        Color[] pixels = renderResult.GetPixels(0, 0, renderTexture.width, renderTexture.height);
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            if (pixels[i] == Color.black)
+            {
+                pixels[i] = Color.clear;
+            }
+        }
+        renderResult.SetPixels(0, 0, renderTexture.width, renderTexture.height, pixels);
+        renderResult.Apply();
+
+        return renderResult;
+    }
     public static void BillboardForPerspectiveCamera()
     {
         ////Calcular posición en cámara (perspectiva) del padre.

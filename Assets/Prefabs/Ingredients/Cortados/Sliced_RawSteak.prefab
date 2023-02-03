@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1701287070932245014
+--- !u!1 &3075495020228236041
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,52 +8,51 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1698305590872131174}
-  - component: {fileID: 1723364935071750808}
-  - component: {fileID: 1715330987190026738}
-  - component: {fileID: 2463804174633271250}
-  - component: {fileID: 28487759288132808}
-  - component: {fileID: 984778183768081213}
+  - component: {fileID: 3072547933593276281}
+  - component: {fileID: 3087475628268491655}
+  - component: {fileID: 3097457910756722925}
   m_Layer: 11
   m_Name: Sliced_RawSteak
-  m_TagString: Ingredient
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1698305590872131174
+--- !u!4 &3072547933593276281
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1701287070932245014}
+  m_GameObject: {fileID: 3075495020228236041}
   m_LocalRotation: {x: 0.00000007298291, y: -0.44419187, z: -0.000000036184023, w: 0.8959317}
-  m_LocalPosition: {x: 6.4671926, y: 0.392, z: 10.466429}
+  m_LocalPosition: {x: 0, y: 0.04069999, z: 0}
   m_LocalScale: {x: 0.555854, y: 0.555854, z: 0.68770266}
+  m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 6050590043259541592}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1723364935071750808
+--- !u!33 &3087475628268491655
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1701287070932245014}
+  m_GameObject: {fileID: 3075495020228236041}
   m_Mesh: {fileID: 4300000, guid: 8cd4586ebadd1934b84fdbadcc9a8072, type: 3}
---- !u!23 &1715330987190026738
+--- !u!23 &3097457910756722925
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1701287070932245014}
+  m_GameObject: {fileID: 3075495020228236041}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -84,26 +83,48 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2463804174633271250
-BoxCollider:
+--- !u!1 &5513467808041834028
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1701287070932245014}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.9744825, y: 0.14662132, z: 0.77284145}
-  m_Center: {x: -1.6411263e-21, y: -0.000000115484, z: 8.2056317e-22}
---- !u!54 &28487759288132808
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6050590043259541592}
+  - component: {fileID: 1188783240395808730}
+  - component: {fileID: 1571061554014421009}
+  - component: {fileID: 4330692522256755121}
+  m_Layer: 0
+  m_Name: Sliced_RawSteak
+  m_TagString: Ingredient
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6050590043259541592
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513467808041834028}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.4671926, y: 0.3513, z: 10.466429}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3072547933593276281}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1188783240395808730
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1701287070932245014}
+  m_GameObject: {fileID: 5513467808041834028}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -113,13 +134,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &984778183768081213
+--- !u!65 &1571061554014421009
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513467808041834028}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5339508, y: 0.08487773, z: 0.53728867}
+  m_Center: {x: 0.00040102005, y: 0.04305598, z: 0}
+--- !u!114 &4330692522256755121
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1701287070932245014}
+  m_GameObject: {fileID: 5513467808041834028}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1729b1219e24f6942af5655943da54f4, type: 3}

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.InputSystem;
 
 public enum ImageFilterMode
 {
@@ -9,20 +10,33 @@ public enum ImageFilterMode
     Bilinear = 1,
     Average = 2
 }
-public class ScreenshotHandler : MonoBehaviour
+public class ScreenShotHandler : MonoBehaviour
 {
-    private ScreenshotHandler instance;
-    public Camera myCamera;
-    private bool takeScreenshotOnNextFrame;
-    public bool transparentBackground;
-    public string filepath = "Assets/";
+    [SerializeField] Camera myCamera;
+    bool takeScreenshotOnNextFrame;
+    bool transparentBackground = true;
+    [SerializeField] string fileName;
+    [SerializeField] RenderTexture ejemplo;
+    const string filepath = "Assets/";
     RenderTexture renderTexture;
+    ScreenShot screenShot;
+    
     private void Awake()
     {
-        instance = this;
+        screenShot = new ScreenShot();
         myCamera.backgroundColor = Color.black;
+        TakeScreenshot(1000, 1000, "buns");
     }
-    public IEnumerator onPostRender(string fileName)
+    private void OnEnable()
+    {
+        screenShot.Enable();
+        screenShot.Screenshot.ScreenAction.performed += ctx =>
+        {
+            ScreenCapture.CaptureScreenshot(fileName);
+            Debug.Log("captura creada!");
+        };
+    }
+    public IEnumerator OnPostRender(string fileName)
     {
         yield return new WaitForEndOfFrame();
 
@@ -68,7 +82,7 @@ public class ScreenshotHandler : MonoBehaviour
     {
         myCamera.targetTexture = RenderTexture.GetTemporary(width, height, 32);
         takeScreenshotOnNextFrame = true;
-        StartCoroutine(onPostRender(fileName));
+        StartCoroutine(OnPostRender(fileName));
     }
     public Texture2D ResizeTexture(Texture2D originalTexture, ImageFilterMode filterMode, int newWidth, int newHeight)
     {

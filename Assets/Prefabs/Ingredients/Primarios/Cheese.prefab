@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.093, y: 0.2001, z: -0.0019}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3738819853204747596}
   m_RootOrder: 0
@@ -51,6 +52,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -110,6 +112,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.093, y: -0.2001, z: 0.0019}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3243365555014912902}
   - {fileID: 450841740717012435}
@@ -159,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stackIngredients: 05000000
   progressBarCanvas: {fileID: 450841740717012438}
-  ingredientAfterAction: {fileID: 1362950040675670841, guid: 9425226ab6d996c47b1cf493c36af4a8, type: 3}
+  ingredientAfterAction: {fileID: 751259234985116893, guid: 7eff43a54c827aa4fb0ce22e4aedb447, type: 3}
   chopDuration: 2
 --- !u!1001 &7027472304970509184
 PrefabInstance:
@@ -264,9 +267,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 7477997351843569238, guid: a1abdcd18c5b5b143b73dcc6c0eec058, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7477997352502877745, guid: a1abdcd18c5b5b143b73dcc6c0eec058, type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7477997352502877758, guid: a1abdcd18c5b5b143b73dcc6c0eec058, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7477997352673479540, guid: a1abdcd18c5b5b143b73dcc6c0eec058, type: 3}
       propertyPath: m_Layer
@@ -278,13 +289,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1abdcd18c5b5b143b73dcc6c0eec058, type: 3}
---- !u!1 &450841740717012438 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7477997351843569238, guid: a1abdcd18c5b5b143b73dcc6c0eec058, type: 3}
-  m_PrefabInstance: {fileID: 7027472304970509184}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &450841740717012435 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7477997351843569235, guid: a1abdcd18c5b5b143b73dcc6c0eec058, type: 3}
+  m_PrefabInstance: {fileID: 7027472304970509184}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &450841740717012438 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7477997351843569238, guid: a1abdcd18c5b5b143b73dcc6c0eec058, type: 3}
   m_PrefabInstance: {fileID: 7027472304970509184}
   m_PrefabAsset: {fileID: 0}
