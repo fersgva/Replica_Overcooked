@@ -27,7 +27,7 @@ public class KnifeTable : Table, IInteractable, IActionable
     }
     public override void Interact(PlayerInteractions interacter, GameObject otherObject)
     {
-        if (otherObject.TryGetComponent(out Ingredient ingredient))
+        if (otherObject && otherObject.TryGetComponent(out Ingredient ingredient))
         {
             interacter.ReleaseOnKnifeTable(ingredient, gameObject);
         }

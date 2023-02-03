@@ -140,7 +140,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8508620830850955279}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.38628474
@@ -160,6 +160,7 @@ MonoBehaviour:
   stackIngredients: 04000000
   progressBarCanvas: {fileID: 5799082345662612283}
   ingredientAfterAction: {fileID: 0}
+  chopDuration: 0
 --- !u!1001 &4016459160551365997
 PrefabInstance:
   m_ObjectHideFlags: 0

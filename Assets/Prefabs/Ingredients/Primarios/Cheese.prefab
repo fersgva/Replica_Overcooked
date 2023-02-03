@@ -159,7 +159,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stackIngredients: 05000000
   progressBarCanvas: {fileID: 450841740717012438}
-  ingredientAfterAction: {fileID: 0}
+  ingredientAfterAction: {fileID: 1362950040675670841, guid: 9425226ab6d996c47b1cf493c36af4a8, type: 3}
+  chopDuration: 2
 --- !u!1001 &7027472304970509184
 PrefabInstance:
   m_ObjectHideFlags: 0

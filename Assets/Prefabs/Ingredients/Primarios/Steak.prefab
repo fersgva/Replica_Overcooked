@@ -59,7 +59,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 974164453694135779}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 0.13504195, z: 0.5821991}
@@ -78,7 +78,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stackIngredients: 00000000
   progressBarCanvas: {fileID: 5741963235535257093}
-  ingredientAfterAction: {fileID: 0}
+  ingredientAfterAction: {fileID: 1701287070932245014, guid: 33cfc1435ee9d924782a6a659991e696, type: 3}
+  chopDuration: 2
 --- !u!1 &6409880951368172614
 GameObject:
   m_ObjectHideFlags: 0

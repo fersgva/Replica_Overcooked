@@ -26,7 +26,6 @@ public class Table : MonoBehaviour, IInteractable
             //MESA: SARTÉN
             else if (transform.GetChild(0).CompareTag("Pan"))
             {
-                Debug.Log("DETECTO SARTÉN");
                 interacter.ReleaseOnPan(holdIngredient, gameObject);
             }
         }

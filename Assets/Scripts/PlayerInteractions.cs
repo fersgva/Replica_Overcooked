@@ -109,11 +109,13 @@ public class PlayerInteractions : MonoBehaviour
     public void ReleasePickUp(Transform parent, bool asKinematic, bool enableColl, float yOffset)
     {
         anim.SetBool("holding", false);
-        holdItem.GetComponent<Collider>().enabled = enableColl;
+        Collider coll = holdItem.GetComponent<Collider>();
+        coll.enabled = enableColl;
         holdItem.GetComponent<Rigidbody>().isKinematic = asKinematic;
+        if (asKinematic) coll.isTrigger = true;
         //parent.SetParent(holdItem.transform);
         holdItem.transform.SetParent(parent);
-        if(parent != null)
+        if(parent)
         {
             holdItem.transform.localPosition = new Vector3(0f, yOffset, 0f);
             holdItem.transform.localEulerAngles = Vector3.zero;
@@ -134,6 +136,7 @@ public class PlayerInteractions : MonoBehaviour
         //Animations
         anim.SetBool("holding", true);
 
+        Collider coll = holdItem.GetComponent<Collider>();
         
         //Le sacamos de la lista para que no lo tome entre los pickables cercanos.
         detectScr.closePickables.Remove(holdItem);
@@ -141,7 +144,8 @@ public class PlayerInteractions : MonoBehaviour
         //Change item properties.
         Utilities.ChangeAllGameObjectLayers(holdItem, detectScr.interactuableMask);
         holdItem.GetComponent<Rigidbody>().isKinematic = true;
-        holdItem.GetComponent<Collider>().enabled = false;
+        coll.enabled = false;
+        coll.isTrigger = false;
         holdItem.transform.SetParent(holdPoint);
         holdItem.transform.localPosition = new Vector3(0, 0, 0.2f);
         holdItem.transform.localEulerAngles = new Vector3(60, 100, 90);
