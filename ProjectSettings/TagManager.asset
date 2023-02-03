@@ -6,12 +6,11 @@ TagManager:
   tags:
   - Table
   - PickUp
-  - Crate
-  - KnifeTable
   - OrtographicCamera
   - Plate
   - Ingredient
   - Pan
+  - ChoppedIngredient
   layers:
   - Default
   - TransparentFX

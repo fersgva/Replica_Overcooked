@@ -107,7 +107,6 @@ public class Ingredient : MonoBehaviour
 
         while (actionProgression < duration)
         {
-            Debug.Log(actionProgression);
             slider.value = Mathf.Lerp(initValue, finalValue, actionProgression / duration);
             actionProgression += Time.deltaTime;
             yield return null;
@@ -122,4 +121,6 @@ public class Ingredient : MonoBehaviour
         pl.anim.SetBool("chopping", false);
         Destroy(gameObject);
     }
+
+
 }

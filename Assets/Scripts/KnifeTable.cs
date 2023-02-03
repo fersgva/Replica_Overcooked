@@ -16,7 +16,7 @@ public class KnifeTable : Table, IInteractable, IActionable
 
     public Ingredient TriggerAction()
     {
-        if (transform.childCount > 2 && transform.GetChild(2).TryGetComponent(out Ingredient ingredientOnTable))
+        if (transform.childCount > 1 && transform.GetChild(1).TryGetComponent(out Ingredient ingredientOnTable))
         {
             return ingredientOnTable;
         }
@@ -27,9 +27,20 @@ public class KnifeTable : Table, IInteractable, IActionable
     }
     public override void Interact(PlayerInteractions interacter, GameObject otherObject)
     {
-        if (otherObject && otherObject.TryGetComponent(out Ingredient ingredient))
+        if (otherObject)
         {
-            interacter.ReleaseOnKnifeTable(ingredient, gameObject);
+            Debug.Log("LLego 1!");
+            if(otherObject.TryGetComponent(out Ingredient ingredient))
+            {
+                Debug.Log("llgo 2");
+                interacter.ReleaseOnKnifeTable(ingredient, gameObject);
+            }
+
+            else if(otherObject.CompareTag("Plate") && transform.childCount > 1)
+            {
+                Debug.Log("llego 3");
+                interacter.ReleaseOnPlate(transform.GetChild(1).GetComponent<Ingredient>(), gameObject);
+            }
         }
 
     }
