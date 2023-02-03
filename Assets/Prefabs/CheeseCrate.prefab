@@ -23,6 +23,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheeseCrate
       objectReference: {fileID: 0}
+    - target: {fileID: 3823845092672035870, guid: 2c57dc392ba545c4f8b0a1aafdc57578, type: 3}
+      propertyPath: m_TagString
+      value: Table
+      objectReference: {fileID: 0}
     - target: {fileID: 3823845092672035871, guid: 2c57dc392ba545c4f8b0a1aafdc57578, type: 3}
       propertyPath: m_RootOrder
       value: 0

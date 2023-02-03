@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a9c21d369fa574c88e61f7379298f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  progressBar: {fileID: 1722941384006484077}
+  progressBar: {fileID: 0}
 --- !u!1001 &3840542378961193093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -104,7 +104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1144018225762499372, guid: 25d5b08f4526766469bb151ef4f00dfd, type: 3}
       propertyPath: m_TagString
-      value: KnifeTable
+      value: Table
       objectReference: {fileID: 0}
     - target: {fileID: 1144018225762499379, guid: 25d5b08f4526766469bb151ef4f00dfd, type: 3}
       propertyPath: m_RootOrder
@@ -273,14 +273,13 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7477997351843569235, guid: a1abdcd18c5b5b143b73dcc6c0eec058, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2496479621284221873, guid: a1abdcd18c5b5b143b73dcc6c0eec058, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a1abdcd18c5b5b143b73dcc6c0eec058, type: 3}
---- !u!1 &1722941384006484077 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2496479621284221872, guid: a1abdcd18c5b5b143b73dcc6c0eec058, type: 3}
-  m_PrefabInstance: {fileID: 3840542380744971229}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8134590539191074936
 PrefabInstance:
   m_ObjectHideFlags: 0

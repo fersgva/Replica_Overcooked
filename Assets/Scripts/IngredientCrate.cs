@@ -2,18 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IngredientCrate : MonoBehaviour
+public class IngredientCrate : Table, IInteractable
 {
-    public Ingredient ingredientToSpawn;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Ingredient ingredientToSpawn;
+
+    public override void Interact(PlayerInteractions interacter, GameObject otherObject)
     {
-        
+        if(otherObject == null) interacter.OpenCrate(gameObject, ingredientToSpawn); 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

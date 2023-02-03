@@ -30,7 +30,7 @@ public class PlayerDetections : MonoBehaviour
     #region trigger detection
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Table") || other.gameObject.CompareTag("Crate"))
+        if(other.gameObject.CompareTag("Table"))
         {
             GameObject thisCloseTable = other.gameObject; 
             if(!closeTables.Contains(thisCloseTable))
@@ -50,7 +50,7 @@ public class PlayerDetections : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Table") || other.gameObject.CompareTag("Crate"))
+        if (other.gameObject.CompareTag("Table"))
         {
             GameObject thisCloseTable = other.gameObject;
             closeTables.Remove(thisCloseTable);

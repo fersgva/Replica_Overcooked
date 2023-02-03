@@ -36,9 +36,11 @@ public class PlayerInteractions : MonoBehaviour
                 holdItem = detectScr.closestPickable;
                 CatchPickUp(); //Cogemos el pickup.
             }
-            else if (detectScr.closestTable && detectScr.closestTable.CompareTag("Crate")) //ó si hay una caja cerca...
+            else if (detectScr.closestTable) //ó si hay una caja cerca...
             {
-                OpenCrate();
+                GameObject closestTable = detectScr.closestTable;
+
+                closestTable.GetComponent<Table>().Interact(this, holdItem);
             }
 
         }
@@ -119,13 +121,11 @@ public class PlayerInteractions : MonoBehaviour
         holdItem = null;
     }
 
-    private void OpenCrate()
+    public void OpenCrate(GameObject crate, Ingredient ingredientToSpawn)
     {
-        GameObject crate = detectScr.closestTable;
         Animator animCrate = crate.GetComponent<Animator>();
-        IngredientCrate crateScript = crate.GetComponent<IngredientCrate>();
         animCrate.SetTrigger("open");
-        holdItem = Instantiate(crateScript.ingredientToSpawn.gameObject, crate.transform.position, Quaternion.identity);
+        holdItem = Instantiate(ingredientToSpawn.gameObject, crate.transform.position, Quaternion.identity);
         CatchPickUp();
     }
 
