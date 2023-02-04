@@ -7,6 +7,8 @@ public class Table : MonoBehaviour, IInteractable
 {
     public virtual void Interact(PlayerInteractions interacter, GameObject otherObject)
     {
+        if (!otherObject) return;
+
         if (transform.childCount == 0) //MESA: VACÍA
         {
             interacter.ReleasePickUp(transform, true, true, 0.5f);

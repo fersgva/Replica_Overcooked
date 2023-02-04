@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.0026545525, y: 0.40399998, z: -0.0002975464}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8508620830850955278}
   m_RootOrder: 0
@@ -51,6 +52,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -110,6 +112,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.7439, y: -0.754, z: 9.186501}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1968824847542639739}
   - {fileID: 5799082345662612286}
@@ -159,8 +162,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stackIngredients: 04000000
   progressBarCanvas: {fileID: 5799082345662612283}
-  ingredientAfterAction: {fileID: 0}
-  chopDuration: 0
+  ingredientAfterAction: {fileID: 920581842687135640, guid: 17e47df5b3fdd494f9f291e3cdf76228, type: 3}
+  chopDuration: 2
 --- !u!1001 &4016459160551365997
 PrefabInstance:
   m_ObjectHideFlags: 0

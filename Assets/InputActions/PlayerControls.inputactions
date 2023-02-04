@@ -10,8 +10,9 @@
                     "type": "Value",
                     "id": "33e3f4b4-dcf7-485b-8e8d-ab8fb4f1896a",
                     "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": ""
+                    "processors": "StickDeadzone(min=0.5)",
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Dash",
@@ -19,7 +20,8 @@
                     "id": "5bce2bba-aa9f-4146-9ca5-c2c2e6787d30",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Interact",
@@ -27,7 +29,8 @@
                     "id": "2fa0cadc-b016-4dd3-9d14-a9b28ba7066e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Action",
@@ -35,7 +38,8 @@
                     "id": "5e2f982c-d24e-47da-8e24-6ea814a1e4b8",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
