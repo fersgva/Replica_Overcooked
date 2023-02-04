@@ -113,7 +113,10 @@ public class Ingredient : MonoBehaviour
         }
         actionProgression = 0; //Por si más adelante tenemos que hacer a este ingrediente otras acciones.
 
-        Instantiate(ingredientAfterAction, transform.position, Quaternion.identity);
+        
+        GameObject newGameObject = Instantiate(ingredientAfterAction, transform.position, Quaternion.identity);
+        newGameObject.transform.SetParent(transform.parent);
+        Debug.Break();
 
         //Importante: Tenemos que actualizar la lista.
         plDetections.closePickables.Remove(gameObject);

@@ -54,7 +54,7 @@ public class PlayerInteractions : MonoBehaviour
         }
         else //Si no hay mesa delante.
         {
-            ReleasePickUp(null, false, true, 0);
+            ReleasePickUp(holdItem, null, false, true, 0);
         }
     }
 
@@ -64,18 +64,18 @@ public class PlayerInteractions : MonoBehaviour
         if (holdIngredient.stackIngredients.Count == 1 &&
         holdIngredient.stackIngredients.Intersect(CraftingSystem.system.chopableIngredients).Any())
         {
-            ReleasePickUp(closestTable.transform, true, true, 0.6f); //Lo dejamos en la mesa.
+            ReleasePickUp(holdIngredient.gameObject, closestTable.transform, true, true, 0.6f); //Lo dejamos en la mesa.
         }
 
     }
 
-    public void ReleaseOnPlate(Ingredient ingredientToPutOnPlate, GameObject closestTable)
+    public void ReleaseOnPlate(Ingredient ingredientToPutOnPlate, GameObject plate)
     {
         //Si lo que tengo en mano está entre los items que se pueden cortar y que pueden estar sobre plato.
         if (ingredientToPutOnPlate.stackIngredients.Count == 1 &&
         ingredientToPutOnPlate.stackIngredients.Intersect(CraftingSystem.system.canBeOnPlateIngredients).Any())
         {
-            ReleasePickUp(closestTable.transform.GetChild(0), true, false, 0.03f); //Lo dejamos en la mesa.
+            ReleasePickUp(ingredientToPutOnPlate.gameObject, plate.transform, true, false, 0.03f); //Lo dejamos en la mesa.
         }
     }
 
@@ -86,7 +86,7 @@ public class PlayerInteractions : MonoBehaviour
         holdIngredient.stackIngredients.Intersect(CraftingSystem.system.canBeOnPanIngredients).Any())
         {
             Debug.Log("pUEDO!");
-            ReleasePickUp(closestTable.transform.GetChild(0), true, false, 0.3f);
+            ReleasePickUp(holdIngredient.gameObject, closestTable.transform.GetChild(0), true, false, 0.3f);
         }
     }
     public void MixIngredient(GameObject closestTable, Ingredient holdIngredient, Ingredient ingredientToMix)
@@ -102,23 +102,23 @@ public class PlayerInteractions : MonoBehaviour
             Destroy(holdItem);
             Destroy(ingredientToMix.gameObject);
             holdItem = Instantiate(newIngredient.gameObject, closestTable.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
-            ReleasePickUp(closestTable.transform, true, true, 0.5f);
+            ReleasePickUp(holdItem, closestTable.transform, true, true, 0.5f);
         }
     }
 
-    public void ReleasePickUp(Transform parent, bool asKinematic, bool enableColl, float yOffset)
+    public void ReleasePickUp(GameObject pickUp, Transform parent, bool asKinematic, bool enableColl, float yOffset)
     {
         anim.SetBool("holding", false);
-        Collider coll = holdItem.GetComponent<Collider>();
+        Collider coll = pickUp.GetComponent<Collider>();
         coll.enabled = enableColl;
-        holdItem.GetComponent<Rigidbody>().isKinematic = asKinematic;
+        pickUp.GetComponent<Rigidbody>().isKinematic = asKinematic;
         if (asKinematic) coll.isTrigger = true;
         //parent.SetParent(holdItem.transform);
-        holdItem.transform.SetParent(parent);
+        pickUp.transform.SetParent(parent);
         if(parent)
         {
-            holdItem.transform.localPosition = new Vector3(0f, yOffset, 0f);
-            holdItem.transform.localEulerAngles = Vector3.zero;
+            pickUp.transform.localPosition = new Vector3(0f, yOffset, 0f);
+            pickUp.transform.localEulerAngles = Vector3.zero;
         }
         holdItem = null;
     }

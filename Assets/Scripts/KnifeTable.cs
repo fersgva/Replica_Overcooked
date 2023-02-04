@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class KnifeTable : Table, IInteractable, IActionable
 {
@@ -39,7 +40,19 @@ public class KnifeTable : Table, IInteractable, IActionable
             else if(otherObject.CompareTag("Plate") && transform.childCount > 1)
             {
                 Debug.Log("llego 3");
-                interacter.ReleaseOnPlate(transform.GetChild(1).GetComponent<Ingredient>(), gameObject);
+                Ingredient ingredientOnTable = transform.GetChild(1).gameObject.GetComponent<Ingredient>();
+
+                //Sólo si el ingrediente que está sobre la mesa ya ha sido cortado y pertenece a la lista de ingredientes que pueden estar en plato.
+                if(ingredientOnTable.stackIngredients.Intersect(CraftingSystem.system.canBeOnPlateIngredients).Any())
+                {
+                    //Es como que primero se deja el plato en mesa...
+                    interacter.GetComponent<PlayerDetections>().closePickables.Remove(ingredientOnTable.gameObject);
+                    interacter.ReleasePickUp(otherObject, gameObject.transform, true, true, 0.5f);
+
+                    //Y después, ponemos al ingrediente como hijo del plato.
+                    interacter.ReleaseOnPlate(ingredientOnTable, otherObject);
+
+                }
             }
         }
 

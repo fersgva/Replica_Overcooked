@@ -11,7 +11,7 @@ public class Table : MonoBehaviour, IInteractable
 
         if (transform.childCount == 0) //MESA: VACÍA
         {
-            interacter.ReleasePickUp(transform, true, true, 0.5f);
+            interacter.ReleasePickUp(otherObject, transform, true, true, 0.5f);
         }
         else if (otherObject.TryGetComponent(out Ingredient holdIngredient)) //MANO: INGREDIENTE
         {
@@ -23,7 +23,7 @@ public class Table : MonoBehaviour, IInteractable
             //MESA: PLATO
             else if (transform.GetChild(0).CompareTag("Plate"))
             {
-                interacter.ReleaseOnPlate(holdIngredient, gameObject);
+                interacter.ReleaseOnPlate(holdIngredient, transform.GetChild(0).gameObject);
             }
             //MESA: SARTÉN
             else if (transform.GetChild(0).CompareTag("Pan"))
@@ -34,9 +34,14 @@ public class Table : MonoBehaviour, IInteractable
         else if (otherObject.CompareTag("Plate")) //MANO: PLATO.
         {
             //MESA: INGREDIENTE
-            if (transform.GetChild(0).TryGetComponent(out Ingredient ingredientOnTable))
+            if (transform.GetChild(0).TryGetComponent(out Ingredient ingredient))
             {
-                interacter.ReleaseOnPlate(ingredientOnTable, gameObject);
+                //Es como que primero se deja el plato en mesa...
+                interacter.GetComponent<PlayerDetections>().closePickables.Remove(ingredient.gameObject);
+                interacter.ReleasePickUp(otherObject, gameObject.transform, true, true, 0.5f);
+
+                //Y después, ponemos al ingrediente como hijo del plato.
+                interacter.ReleaseOnPlate(ingredient, otherObject);
             }
         }
     }

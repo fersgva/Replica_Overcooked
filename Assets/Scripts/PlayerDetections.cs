@@ -73,14 +73,14 @@ public class PlayerDetections : MonoBehaviour
     public void UpdateClosestTable(GameObject currentClosest)
     {
         //La anterior mesa que estaba más cercana.
-        if (currentClosest != null)
+        if (currentClosest)
         {
             Utilities.ChangeAllGameObjectLayers(currentClosest, interactuableMask);
         }
 
         //La nueva mesa más cercana.
         closestTable = CheckClosestItem(closeTables);
-        if (closestTable != null)
+        if (closestTable)
         {
             Utilities.ChangeAllGameObjectLayers(closestTable, highlightedMask);
         }
@@ -91,14 +91,14 @@ public class PlayerDetections : MonoBehaviour
     public void UpdateClosestPickable(GameObject currentClosest)
     {
         //El anterior pick up que estaba más cercana.
-        if (currentClosest != null)
+        if (currentClosest)
         {
             Utilities.ChangeAllGameObjectLayers(closestPickable, interactuableMask);
         }
 
         //Para el nuevo pick Up más cercano.
         closestPickable = CheckClosestItem(closePickables);
-        if (closestPickable != null)
+        if (closestPickable)
         {
             Utilities.ChangeAllGameObjectLayers(closestPickable, highlightedMask);
         }
